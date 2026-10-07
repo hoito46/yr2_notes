@@ -1,0 +1,457 @@
+\contentsline {section}{\numberline {1}Unit 1 --- Introduction to Coding and Cryptography}{10}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Short Introduction}{10}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Digital Communication System}{10}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Bit Errors and Noise}{10}{subsubsection.1.1.2}%
+\contentsline {paragraph}{Definition}{10}{section*.2}%
+\contentsline {paragraph}{XOR table}{10}{section*.3}%
+\contentsline {subsubsection}{\numberline {1.1.3}Two Basic Strategies for Bit Errors}{11}{subsubsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.2}Basics of Cryptography}{11}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Cryptology, Cryptography and Cryptanalysis}{11}{subsubsection.1.2.1}%
+\contentsline {paragraph}{Definition}{11}{section*.4}%
+\contentsline {subsubsection}{\numberline {1.2.2}Four Main Goals of Cryptography}{11}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Basic Language of Cryptography}{11}{subsubsection.1.2.3}%
+\contentsline {paragraph}{Symmetric cryptography}{11}{section*.5}%
+\contentsline {paragraph}{Public-key cryptography}{12}{section*.6}%
+\contentsline {subsubsection}{\numberline {1.2.4}Key Space and Key Length}{12}{subsubsection.1.2.4}%
+\contentsline {subsubsection}{\numberline {1.2.5}Classical Ciphers}{12}{subsubsection.1.2.5}%
+\contentsline {paragraph}{Substitution}{12}{section*.7}%
+\contentsline {paragraph}{Transposition}{12}{section*.8}%
+\contentsline {subsubsection}{\numberline {1.2.6}Caesar Cipher}{12}{subsubsection.1.2.6}%
+\contentsline {paragraph}{Definition}{12}{section*.9}%
+\contentsline {paragraph}{Example}{12}{section*.10}%
+\contentsline {paragraph}{Step-by-Step}{13}{section*.11}%
+\contentsline {subsubsection}{\numberline {1.2.7}Monoalphabetic Substitution and Frequency Analysis}{13}{subsubsection.1.2.7}%
+\contentsline {paragraph}{Definition}{13}{section*.12}%
+\contentsline {subsubsection}{\numberline {1.2.8}Polyalphabetic Substitution and Vigen\`ere Cipher}{13}{subsubsection.1.2.8}%
+\contentsline {paragraph}{Step-by-Step}{13}{section*.13}%
+\contentsline {paragraph}{Example}{14}{section*.14}%
+\contentsline {paragraph}{Step-by-Step}{14}{section*.15}%
+\contentsline {paragraph}{Key Point}{14}{section*.16}%
+\contentsline {subsubsection}{\numberline {1.2.9}Columnar Transposition}{14}{subsubsection.1.2.9}%
+\contentsline {paragraph}{Step-by-Step}{14}{section*.17}%
+\contentsline {paragraph}{Example}{14}{section*.18}%
+\contentsline {subsubsection}{\numberline {1.2.10}Kerckhoffs's Principle and Security by Obscurity}{15}{subsubsection.1.2.10}%
+\contentsline {paragraph}{Definition}{15}{section*.19}%
+\contentsline {paragraph}{Why this is useful}{15}{section*.20}%
+\contentsline {subsection}{\numberline {1.3}Modulo Arithmetic for Cryptography}{15}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Modulo Representation}{15}{subsubsection.1.3.1}%
+\contentsline {paragraph}{Definition}{15}{section*.21}%
+\contentsline {paragraph}{Example}{15}{section*.22}%
+\contentsline {paragraph}{Step-by-Step}{15}{section*.23}%
+\contentsline {subsubsection}{\numberline {1.3.2}Congruence Preserved by Arithmetic}{15}{subsubsection.1.3.2}%
+\contentsline {paragraph}{Step-by-Step}{16}{section*.24}%
+\contentsline {paragraph}{Example}{16}{section*.25}%
+\contentsline {subsubsection}{\numberline {1.3.3}A Divisibility Rule from Modulo Arithmetic}{16}{subsubsection.1.3.3}%
+\contentsline {paragraph}{Step-by-Step}{16}{section*.26}%
+\contentsline {paragraph}{Example}{16}{section*.27}%
+\contentsline {subsection}{\numberline {1.4}Basics of Error Detection and Correction}{16}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}HKID Example}{16}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Single Parity Check}{17}{subsubsection.1.4.2}%
+\contentsline {paragraph}{Definition}{17}{section*.28}%
+\contentsline {paragraph}{Step-by-Step}{17}{section*.29}%
+\contentsline {subsubsection}{\numberline {1.4.3}Two-Dimensional Parity Check}{17}{subsubsection.1.4.3}%
+\contentsline {subsubsection}{\numberline {1.4.4}Repetition Code}{17}{subsubsection.1.4.4}%
+\contentsline {paragraph}{Definition}{17}{section*.30}%
+\contentsline {paragraph}{Example}{17}{section*.31}%
+\contentsline {subsubsection}{\numberline {1.4.5}$(n,k)$ Binary Codes}{17}{subsubsection.1.4.5}%
+\contentsline {paragraph}{Definition}{18}{section*.32}%
+\contentsline {paragraph}{Example}{18}{section*.33}%
+\contentsline {subsubsection}{\numberline {1.4.6}A Non-Systematic Example}{18}{subsubsection.1.4.6}%
+\contentsline {subsubsection}{\numberline {1.4.7}Code Rate}{18}{subsubsection.1.4.7}%
+\contentsline {paragraph}{Definition}{18}{section*.34}%
+\contentsline {paragraph}{Example}{18}{section*.35}%
+\contentsline {subsubsection}{\numberline {1.4.8}Hamming Code}{18}{subsubsection.1.4.8}%
+\contentsline {paragraph}{Worked Example: Decoding}{19}{section*.36}%
+\contentsline {paragraph}{Comparison with two-dimensional parity}{19}{section*.37}%
+\contentsline {section}{\numberline {2}Unit 2 --- Functions}{20}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Opening Idea: Different Sizes of Infinity}{20}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Sets}{20}{subsection.2.2}%
+\contentsline {paragraph}{Definition}{20}{section*.38}%
+\contentsline {paragraph}{Example}{20}{section*.39}%
+\contentsline {paragraph}{Definition}{20}{section*.40}%
+\contentsline {paragraph}{Common Sets}{20}{section*.41}%
+\contentsline {subsubsection}{\numberline {2.2.1}Ordered Pairs}{20}{subsubsection.2.2.1}%
+\contentsline {paragraph}{Definition}{20}{section*.42}%
+\contentsline {paragraph}{Key Point}{21}{section*.43}%
+\contentsline {subsubsection}{\numberline {2.2.2}Cartesian Product}{21}{subsubsection.2.2.2}%
+\contentsline {paragraph}{Definition}{21}{section*.44}%
+\contentsline {paragraph}{Example}{21}{section*.45}%
+\contentsline {subsubsection}{\numberline {2.2.3}Power Set}{21}{subsubsection.2.2.3}%
+\contentsline {paragraph}{Definition}{21}{section*.46}%
+\contentsline {paragraph}{Example}{21}{section*.47}%
+\contentsline {subsubsection}{\numberline {2.2.4}Partitions}{21}{subsubsection.2.2.4}%
+\contentsline {paragraph}{Definition}{21}{section*.48}%
+\contentsline {paragraph}{Example}{21}{section*.49}%
+\contentsline {subsection}{\numberline {2.3}Functions}{21}{subsection.2.3}%
+\contentsline {paragraph}{Definition}{21}{section*.50}%
+\contentsline {paragraph}{Key Point}{22}{section*.51}%
+\contentsline {paragraph}{Example}{22}{section*.52}%
+\contentsline {subsubsection}{\numberline {2.3.1}Inverse Image}{22}{subsubsection.2.3.1}%
+\contentsline {paragraph}{Example}{22}{section*.53}%
+\contentsline {subsubsection}{\numberline {2.3.2}Composition of Functions}{22}{subsubsection.2.3.2}%
+\contentsline {paragraph}{Definition}{22}{section*.54}%
+\contentsline {paragraph}{Step-by-Step}{22}{section*.55}%
+\contentsline {paragraph}{Example}{22}{section*.56}%
+\contentsline {paragraph}{Key Point}{22}{section*.57}%
+\contentsline {subsubsection}{\numberline {2.3.3}Composition Example}{23}{subsubsection.2.3.3}%
+\contentsline {paragraph}{Step-by-Step}{23}{section*.58}%
+\contentsline {subsection}{\numberline {2.4}Injections and Surjections}{23}{subsection.2.4}%
+\contentsline {paragraph}{Definition}{23}{section*.59}%
+\contentsline {paragraph}{Step-by-Step}{23}{section*.60}%
+\contentsline {paragraph}{Definition}{23}{section*.61}%
+\contentsline {paragraph}{Definition}{23}{section*.62}%
+\contentsline {subsubsection}{\numberline {2.4.1}Identity Function}{23}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Inverse Function}{23}{subsubsection.2.4.2}%
+\contentsline {paragraph}{Step-by-Step}{24}{section*.63}%
+\contentsline {paragraph}{Example}{24}{section*.64}%
+\contentsline {subsubsection}{\numberline {2.4.3}Important Counterexample}{24}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}A Floor-Function Example}{24}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}Modulo-10 Function}{25}{subsubsection.2.4.5}%
+\contentsline {paragraph}{Step-by-Step}{25}{section*.65}%
+\contentsline {subsection}{\numberline {2.5}Countable and Uncountable Sets}{25}{subsection.2.5}%
+\contentsline {paragraph}{Definition}{25}{section*.66}%
+\contentsline {subsubsection}{\numberline {2.5.1}Countable Examples}{25}{subsubsection.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.5.2}Union of Countable Sets}{25}{subsubsection.2.5.2}%
+\contentsline {paragraph}{Definition}{25}{section*.67}%
+\contentsline {paragraph}{Step-by-Step}{25}{section*.68}%
+\contentsline {subsubsection}{\numberline {2.5.3}Uncountability of an Interval}{26}{subsubsection.2.5.3}%
+\contentsline {paragraph}{Step-by-Step}{26}{section*.69}%
+\contentsline {subsection}{\numberline {2.6}Hash Functions}{26}{subsection.2.6}%
+\contentsline {paragraph}{Definition}{26}{section*.70}%
+\contentsline {paragraph}{Uses stated}{26}{section*.71}%
+\contentsline {subsubsection}{\numberline {2.6.1}Overflow}{26}{subsubsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.2}Why a Fixed-Length Hash Cannot Be an Injection Here}{26}{subsubsection.2.6.2}%
+\contentsline {section}{\numberline {3}Unit 3 --- Relations}{27}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Definition of Relations}{27}{subsection.3.1}%
+\contentsline {paragraph}{Definition}{27}{section*.72}%
+\contentsline {paragraph}{Example}{27}{section*.73}%
+\contentsline {paragraph}{Example}{27}{section*.74}%
+\contentsline {subsubsection}{\numberline {3.1.1}Relation versus Function}{27}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Inverse Relation}{27}{subsubsection.3.1.2}%
+\contentsline {paragraph}{Definition}{27}{section*.75}%
+\contentsline {paragraph}{Example}{27}{section*.76}%
+\contentsline {subsubsection}{\numberline {3.1.3}Composition of Relations}{27}{subsubsection.3.1.3}%
+\contentsline {paragraph}{Step-by-Step}{28}{section*.77}%
+\contentsline {subsubsection}{\numberline {3.1.4}$k$-ary Relations}{28}{subsubsection.3.1.4}%
+\contentsline {subsubsection}{\numberline {3.1.5}Directed Graph Representation}{28}{subsubsection.3.1.5}%
+\contentsline {paragraph}{Example}{28}{section*.78}%
+\contentsline {subsection}{\numberline {3.2}Properties of Relations}{28}{subsection.3.2}%
+\contentsline {paragraph}{Definition}{28}{section*.79}%
+\contentsline {paragraph}{Step-by-Step}{28}{section*.80}%
+\contentsline {paragraph}{Example}{28}{section*.81}%
+\contentsline {subsubsection}{\numberline {3.2.1}Congruence Modulo 3}{28}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Divisibility as a Relation}{29}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.3}Equivalence Relations}{29}{subsection.3.3}%
+\contentsline {paragraph}{Definition}{29}{section*.82}%
+\contentsline {subsubsection}{\numberline {3.3.1}Motivation}{29}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Partition-Induced Relation}{29}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Test 1 Partition Example}{29}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Equivalence Classes}{29}{subsection.3.4}%
+\contentsline {paragraph}{Definition}{29}{section*.83}%
+\contentsline {paragraph}{Key Point}{30}{section*.84}%
+\contentsline {paragraph}{Example}{30}{section*.85}%
+\contentsline {paragraph}{Example}{30}{section*.86}%
+\contentsline {subsubsection}{\numberline {3.4.1}Proof of the Disjoint-or-Equal Property}{30}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Equivalence Class Example}{30}{subsubsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.5}More Examples of Equivalence Relations}{30}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Binary Sequences by Parity of Number of 1s}{30}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Logic Circuit Equivalence}{31}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.3}Calendar Modulo 7}{31}{subsubsection.3.5.3}%
+\contentsline {subsubsection}{\numberline {3.5.4}Pure Mathematics Example}{31}{subsubsection.3.5.4}%
+\contentsline {subsubsection}{\numberline {3.5.5}Relation Example}{31}{subsubsection.3.5.5}%
+\contentsline {section}{\numberline {4}Unit 4 --- Divisibility and Euclidean Algorithm}{32}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Number Theory and Cryptography}{32}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Divisibility}{32}{subsection.4.2}%
+\contentsline {paragraph}{Definition}{32}{section*.87}%
+\contentsline {paragraph}{Example}{32}{section*.88}%
+\contentsline {paragraph}{Step-by-Step}{32}{section*.89}%
+\contentsline {subsubsection}{\numberline {4.2.1}Divisibility as a Relation}{32}{subsubsection.4.2.1}%
+\contentsline {paragraph}{Step-by-Step}{32}{section*.90}%
+\contentsline {subsubsection}{\numberline {4.2.2}Quotient-Remainder Theorem}{33}{subsubsection.4.2.2}%
+\contentsline {paragraph}{Definition}{33}{section*.91}%
+\contentsline {paragraph}{Step-by-Step}{33}{section*.92}%
+\contentsline {paragraph}{Example}{33}{section*.93}%
+\contentsline {paragraph}{Step-by-Step}{33}{section*.94}%
+\contentsline {subsection}{\numberline {4.3}Primes and Co-primes}{33}{subsection.4.3}%
+\contentsline {paragraph}{Definition}{33}{section*.95}%
+\contentsline {paragraph}{Definition}{33}{section*.96}%
+\contentsline {paragraph}{Key Point}{33}{section*.97}%
+\contentsline {paragraph}{Example}{33}{section*.98}%
+\contentsline {paragraph}{Step-by-Step}{33}{section*.99}%
+\contentsline {subsubsection}{\numberline {4.3.1}Infinitely Many Primes}{34}{subsubsection.4.3.1}%
+\contentsline {paragraph}{Theorem}{34}{section*.100}%
+\contentsline {paragraph}{Step-by-Step}{34}{section*.101}%
+\contentsline {subsubsection}{\numberline {4.3.2}Greatest Common Divisor}{34}{subsubsection.4.3.2}%
+\contentsline {paragraph}{Definition}{34}{section*.102}%
+\contentsline {paragraph}{Example}{34}{section*.103}%
+\contentsline {paragraph}{Step-by-Step}{34}{section*.104}%
+\contentsline {paragraph}{Definition}{35}{section*.105}%
+\contentsline {paragraph}{Example}{35}{section*.106}%
+\contentsline {paragraph}{Step-by-Step}{35}{section*.107}%
+\contentsline {subsubsection}{\numberline {4.3.3}Euler's Totient Function}{35}{subsubsection.4.3.3}%
+\contentsline {paragraph}{Definition}{35}{section*.108}%
+\contentsline {paragraph}{Example}{35}{section*.109}%
+\contentsline {paragraph}{Step-by-Step}{35}{section*.110}%
+\contentsline {paragraph}{Worked Example}{35}{section*.111}%
+\contentsline {paragraph}{Step-by-Step}{36}{section*.112}%
+\contentsline {subsection}{\numberline {4.4}Euclidean Algorithm}{36}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Three Ways to Compute a GCD}{36}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Euclidean Algorithm}{37}{subsubsection.4.4.2}%
+\contentsline {paragraph}{Theorem}{37}{section*.113}%
+\contentsline {paragraph}{Step-by-Step}{37}{section*.114}%
+\contentsline {paragraph}{Example}{37}{section*.115}%
+\contentsline {paragraph}{Step-by-Step}{37}{section*.116}%
+\contentsline {paragraph}{Why it works}{37}{section*.117}%
+\contentsline {subsection}{\numberline {4.5}Extended Euclidean Algorithm}{38}{subsection.4.5}%
+\contentsline {paragraph}{Definition}{38}{section*.118}%
+\contentsline {paragraph}{Certificate Lemma}{38}{section*.119}%
+\contentsline {paragraph}{Step-by-Step}{38}{section*.120}%
+\contentsline {paragraph}{Worked Example}{38}{section*.121}%
+\contentsline {paragraph}{Step-by-Step}{38}{section*.122}%
+\contentsline {paragraph}{Step-by-Step}{38}{section*.123}%
+\contentsline {paragraph}{Step-by-Step}{38}{section*.124}%
+\contentsline {paragraph}{Worked Example}{39}{section*.125}%
+\contentsline {paragraph}{Step-by-Step}{39}{section*.126}%
+\contentsline {paragraph}{Step-by-Step}{39}{section*.127}%
+\contentsline {paragraph}{Step-by-Step}{39}{section*.128}%
+\contentsline {subsection}{\numberline {4.6}Fundamental Theorem of Arithmetic}{39}{subsection.4.6}%
+\contentsline {paragraph}{Theorem}{39}{section*.129}%
+\contentsline {paragraph}{Example}{39}{section*.130}%
+\contentsline {paragraph}{Step-by-Step}{40}{section*.131}%
+\contentsline {paragraph}{Why 1 is not prime}{40}{section*.132}%
+\contentsline {subsubsection}{\numberline {4.6.1}Euclid's Lemma}{40}{subsubsection.4.6.1}%
+\contentsline {paragraph}{Theorem}{40}{section*.133}%
+\contentsline {section}{\numberline {5}Unit 5 --- Modular Arithmetic and Chinese Remainder Theorem}{41}{section.5}%
+\contentsline {subsection}{\numberline {5.1}What is Modular Arithmetic?}{41}{subsection.5.1}%
+\contentsline {paragraph}{Definition}{41}{section*.134}%
+\contentsline {subsubsection}{\numberline {5.1.1}Field Idea}{41}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Arithmetic under Congruence}{41}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Diophantine Equations}{41}{subsection.5.2}%
+\contentsline {paragraph}{Definition}{41}{section*.135}%
+\contentsline {paragraph}{Example}{42}{section*.136}%
+\contentsline {paragraph}{Theorem}{42}{section*.137}%
+\contentsline {paragraph}{Step-by-Step}{42}{section*.138}%
+\contentsline {paragraph}{Example}{42}{section*.139}%
+\contentsline {subsection}{\numberline {5.3}Modular Division}{42}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}Why division is different}{42}{subsubsection.5.3.1}%
+\contentsline {paragraph}{Definition}{42}{section*.140}%
+\contentsline {paragraph}{Theorem}{43}{section*.141}%
+\contentsline {paragraph}{Step-by-Step}{43}{section*.142}%
+\contentsline {paragraph}{Example}{43}{section*.143}%
+\contentsline {paragraph}{Example}{43}{section*.144}%
+\contentsline {subsubsection}{\numberline {5.3.2}Division Modulo a Prime}{43}{subsubsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.4}Modular Exponentiation}{43}{subsection.5.4}%
+\contentsline {paragraph}{Step-by-Step}{43}{section*.145}%
+\contentsline {paragraph}{Example}{44}{section*.146}%
+\contentsline {subsubsection}{\numberline {5.4.1}Fermat's Little Theorem}{44}{subsubsection.5.4.1}%
+\contentsline {paragraph}{Theorem}{44}{section*.147}%
+\contentsline {paragraph}{Example}{44}{section*.148}%
+\contentsline {paragraph}{Example}{44}{section*.149}%
+\contentsline {paragraph}{Example}{44}{section*.150}%
+\contentsline {subsubsection}{\numberline {5.4.2}Euler's Theorem}{44}{subsubsection.5.4.2}%
+\contentsline {paragraph}{Theorem}{44}{section*.151}%
+\contentsline {subsection}{\numberline {5.5}Chinese Remainder Theorem}{45}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Motivating Examples}{45}{subsubsection.5.5.1}%
+\contentsline {paragraph}{Theorem}{45}{section*.152}%
+\contentsline {paragraph}{Step-by-Step}{45}{section*.153}%
+\contentsline {paragraph}{Example}{45}{section*.154}%
+\contentsline {subsubsection}{\numberline {5.5.2}Sunzi's 3-5-7 Problem}{45}{subsubsection.5.5.2}%
+\contentsline {paragraph}{Step-by-Step}{46}{section*.155}%
+\contentsline {subsubsection}{\numberline {5.5.3}Why CRT Matters Later}{46}{subsubsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.6}SageMath}{46}{subsection.5.6}%
+\contentsline {section}{\numberline {6}Unit 6 --- Public Key Cryptography}{47}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Cybersecurity Ethics}{47}{subsection.6.1}%
+\contentsline {paragraph}{Definition}{47}{section*.156}%
+\contentsline {subsubsection}{\numberline {6.1.1}Codes of Ethics}{47}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}(ISC)$^2$ Code of Ethics}{47}{subsubsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.3}Cybersecurity Example}{47}{subsubsection.6.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.4}Types of Hackers}{47}{subsubsection.6.1.4}%
+\contentsline {subsection}{\numberline {6.2}Public Key Cryptography}{48}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Two Problems Motivating Public-Key Cryptography}{48}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}Two Main Motivations}{48}{subsubsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.3}Public-Key Requirements}{48}{subsubsection.6.2.3}%
+\contentsline {subsubsection}{\numberline {6.2.4}Trapdoor One-Way Functions}{48}{subsubsection.6.2.4}%
+\contentsline {paragraph}{Definition}{48}{section*.157}%
+\contentsline {subsubsection}{\numberline {6.2.5}Three Families Mentioned}{48}{subsubsection.6.2.5}%
+\contentsline {subsubsection}{\numberline {6.2.6}Why Public-Key Systems Are Usually Used to Set Up a Session Key}{48}{subsubsection.6.2.6}%
+\contentsline {subsubsection}{\numberline {6.2.7}HTTPS and SSL/TLS Workflow}{49}{subsubsection.6.2.7}%
+\contentsline {subsubsection}{\numberline {6.2.8}Digital Signatures}{49}{subsubsection.6.2.8}%
+\contentsline {paragraph}{Step-by-Step}{49}{section*.158}%
+\contentsline {subsubsection}{\numberline {6.2.9}Hash-Then-Sign}{49}{subsubsection.6.2.9}%
+\contentsline {subsection}{\numberline {6.3}RSA Cryptosystems}{50}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Background}{50}{subsubsection.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.2}Preparing the Message}{50}{subsubsection.6.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.3}RSA Key Generation}{50}{subsubsection.6.3.3}%
+\contentsline {paragraph}{Step-by-Step}{50}{section*.159}%
+\contentsline {subsubsection}{\numberline {6.3.4}RSA Encryption and Decryption}{50}{subsubsection.6.3.4}%
+\contentsline {paragraph}{Example}{51}{section*.160}%
+\contentsline {subsubsection}{\numberline {6.3.5}Why RSA Works}{51}{subsubsection.6.3.5}%
+\contentsline {subsubsection}{\numberline {6.3.6}Why Factoring Matters for RSA Security}{51}{subsubsection.6.3.6}%
+\contentsline {subsection}{\numberline {6.4}Diffie-Hellman Key Exchange}{51}{subsection.6.4}%
+\contentsline {subsubsection}{\numberline {6.4.1}Discrete Logarithm}{51}{subsubsection.6.4.1}%
+\contentsline {subsubsection}{\numberline {6.4.2}GF($p$), Order and Primitive Elements}{52}{subsubsection.6.4.2}%
+\contentsline {paragraph}{Definition}{52}{section*.161}%
+\contentsline {paragraph}{Definition}{52}{section*.162}%
+\contentsline {paragraph}{Example}{52}{section*.163}%
+\contentsline {subsubsection}{\numberline {6.4.3}Diffie-Hellman Protocol}{52}{subsubsection.6.4.3}%
+\contentsline {paragraph}{Step-by-Step}{52}{section*.164}%
+\contentsline {subsubsection}{\numberline {6.4.4}Why a Passive Eve Has Difficulty}{53}{subsubsection.6.4.4}%
+\contentsline {subsubsection}{\numberline {6.4.5}Man-in-the-Middle Attack}{53}{subsubsection.6.4.5}%
+\contentsline {paragraph}{Worked Example}{53}{section*.165}%
+\contentsline {subsection}{\numberline {6.5}El Gamal Cryptosystems}{53}{subsection.6.5}%
+\contentsline {subsubsection}{\numberline {6.5.1}Key Generation}{53}{subsubsection.6.5.1}%
+\contentsline {subsubsection}{\numberline {6.5.2}Encryption}{53}{subsubsection.6.5.2}%
+\contentsline {paragraph}{Step-by-Step}{53}{section*.166}%
+\contentsline {subsubsection}{\numberline {6.5.3}Decryption}{54}{subsubsection.6.5.3}%
+\contentsline {paragraph}{Step-by-Step}{54}{section*.167}%
+\contentsline {paragraph}{Example}{54}{section*.168}%
+\contentsline {paragraph}{Why decryption recovers the same key}{54}{section*.169}%
+\contentsline {paragraph}{Security statement in this section}{54}{section*.170}%
+\contentsline {section}{\numberline {7}Unit 7 --- Digital Certificate}{55}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Motivation: Identity Verification Problem}{55}{subsection.7.1}%
+\contentsline {paragraph}{Key Point}{55}{section*.171}%
+\contentsline {subsection}{\numberline {7.2}Public-Key Authority}{55}{subsection.7.2}%
+\contentsline {paragraph}{Step-by-Step}{55}{section*.172}%
+\contentsline {paragraph}{Major drawback}{55}{section*.173}%
+\contentsline {subsection}{\numberline {7.3}Digital Certificates}{55}{subsection.7.3}%
+\contentsline {paragraph}{Definition}{55}{section*.174}%
+\contentsline {subsection}{\numberline {7.4}Issuing a Digital Certificate}{55}{subsection.7.4}%
+\contentsline {paragraph}{Step-by-Step}{55}{section*.175}%
+\contentsline {subsection}{\numberline {7.5}Using a Digital Certificate}{56}{subsection.7.5}%
+\contentsline {paragraph}{Step-by-Step}{56}{section*.176}%
+\contentsline {subsection}{\numberline {7.6}X.509}{56}{subsection.7.6}%
+\contentsline {paragraph}{Definition}{56}{section*.177}%
+\contentsline {subsubsection}{\numberline {7.6.1}X.509 Certificate Structure}{56}{subsubsection.7.6.1}%
+\contentsline {subsection}{\numberline {7.7}Self-Signed Certificate}{57}{subsection.7.7}%
+\contentsline {paragraph}{Definition}{57}{section*.178}%
+\contentsline {subsection}{\numberline {7.8}OpenSSL Practical Activity}{57}{subsection.7.8}%
+\contentsline {subsection}{\numberline {7.9}TBL Preparation}{57}{subsection.7.9}%
+\contentsline {section}{\numberline {8}Unit 8 --- Linear Algebra for Cryptography}{58}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Opening Idea: Four-Digit Combination Lock}{58}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Linear Mappings}{58}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Vectors}{58}{subsubsection.8.2.1}%
+\contentsline {paragraph}{Definition}{58}{section*.179}%
+\contentsline {paragraph}{Definition}{58}{section*.180}%
+\contentsline {subsubsection}{\numberline {8.2.2}Vector-Valued Mappings}{58}{subsubsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.3}Linearity}{58}{subsubsection.8.2.3}%
+\contentsline {paragraph}{Definition}{58}{section*.181}%
+\contentsline {paragraph}{Example}{59}{section*.182}%
+\contentsline {subsubsection}{\numberline {8.2.4}Zero-in, Zero-out}{59}{subsubsection.8.2.4}%
+\contentsline {subsubsection}{\numberline {8.2.5}Examples and Non-Examples}{59}{subsubsection.8.2.5}%
+\contentsline {subsubsection}{\numberline {8.2.6}Inner Product}{59}{subsubsection.8.2.6}%
+\contentsline {subsubsection}{\numberline {8.2.7}A Linear Function from an Inner Product}{59}{subsubsection.8.2.7}%
+\contentsline {subsection}{\numberline {8.3}Matrix Representation of Linearity}{60}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Matrix-Vector Multiplication}{60}{subsubsection.8.3.1}%
+\contentsline {paragraph}{Example}{60}{section*.183}%
+\contentsline {subsubsection}{\numberline {8.3.2}Every Matrix Defines a Linear Map}{60}{subsubsection.8.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.3}Geometric Transformations}{60}{subsubsection.8.3.3}%
+\contentsline {subsubsection}{\numberline {8.3.4}Converse Theorem}{61}{subsubsection.8.3.4}%
+\contentsline {subsubsection}{\numberline {8.3.5}Affine Functions}{61}{subsubsection.8.3.5}%
+\contentsline {subsubsection}{\numberline {8.3.6}Composition of Linear Maps}{61}{subsubsection.8.3.6}%
+\contentsline {subsection}{\numberline {8.4}Determinants and Matrix Inverses}{61}{subsection.8.4}%
+\contentsline {subsubsection}{\numberline {8.4.1}Determinant of a $2\times 2$ Matrix}{61}{subsubsection.8.4.1}%
+\contentsline {paragraph}{Definition}{61}{section*.184}%
+\contentsline {subsubsection}{\numberline {8.4.2}Minor and Cofactor}{61}{subsubsection.8.4.2}%
+\contentsline {paragraph}{Definition}{61}{section*.185}%
+\contentsline {paragraph}{Definition}{61}{section*.186}%
+\contentsline {paragraph}{Example}{62}{section*.187}%
+\contentsline {subsubsection}{\numberline {8.4.3}Cofactor Expansion}{62}{subsubsection.8.4.3}%
+\contentsline {subsubsection}{\numberline {8.4.4}Cramer's Rule}{62}{subsubsection.8.4.4}%
+\contentsline {subsubsection}{\numberline {8.4.5}Matrix Inverse by Cofactors}{62}{subsubsection.8.4.5}%
+\contentsline {paragraph}{Step-by-Step}{62}{section*.188}%
+\contentsline {subsection}{\numberline {8.5}Symmetric Ciphers}{63}{subsection.8.5}%
+\contentsline {subsubsection}{\numberline {8.5.1}Affine Cipher}{63}{subsubsection.8.5.1}%
+\contentsline {paragraph}{Definition}{63}{section*.189}%
+\contentsline {subsubsection}{\numberline {8.5.2}Hill Cipher}{63}{subsubsection.8.5.2}%
+\contentsline {subsubsection}{\numberline {8.5.3}Invertibility Modulo 26}{63}{subsubsection.8.5.3}%
+\contentsline {paragraph}{Example}{63}{section*.190}%
+\contentsline {subsubsection}{\numberline {8.5.4}Known-Plaintext Vulnerability}{64}{subsubsection.8.5.4}%
+\contentsline {subsubsection}{\numberline {8.5.5}Caesar with an Increasing Shift}{64}{subsubsection.8.5.5}%
+\contentsline {subsubsection}{\numberline {8.5.6}Optional Enigma Material}{64}{subsubsection.8.5.6}%
+\contentsline {subsection}{\numberline {8.6}Secret Sharing}{64}{subsection.8.6}%
+\contentsline {subsubsection}{\numberline {8.6.1}Two-Point Idea}{64}{subsubsection.8.6.1}%
+\contentsline {paragraph}{Step-by-Step}{64}{section*.191}%
+\contentsline {subsubsection}{\numberline {8.6.2}$(t,n)$ Threshold Secret Sharing}{65}{subsubsection.8.6.2}%
+\contentsline {paragraph}{Definition}{65}{section*.192}%
+\contentsline {subsubsection}{\numberline {8.6.3}Polynomial Secret Sharing}{65}{subsubsection.8.6.3}%
+\contentsline {subsubsection}{\numberline {8.6.4}Recovery as a Linear Algebra Problem}{65}{subsubsection.8.6.4}%
+\contentsline {paragraph}{Example}{65}{section*.193}%
+\contentsline {section}{\numberline {9}Unit 9 --- Error-Correcting Codes}{66}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Introduction}{66}{subsection.9.1}%
+\contentsline {subsubsection}{\numberline {9.1.1}$(n,k)$ Binary Codes}{66}{subsubsection.9.1.1}%
+\contentsline {paragraph}{Definition}{66}{section*.194}%
+\contentsline {subsubsection}{\numberline {9.1.2}Single Parity Check Revisited}{66}{subsubsection.9.1.2}%
+\contentsline {subsubsection}{\numberline {9.1.3}Code Rate}{66}{subsubsection.9.1.3}%
+\contentsline {subsubsection}{\numberline {9.1.4}Linear Codes}{66}{subsubsection.9.1.4}%
+\contentsline {paragraph}{Definition}{66}{section*.195}%
+\contentsline {subsubsection}{\numberline {9.1.5}Matrix-Matrix Multiplication}{67}{subsubsection.9.1.5}%
+\contentsline {subsection}{\numberline {9.2}Error Detection Capability}{67}{subsection.9.2}%
+\contentsline {subsubsection}{\numberline {9.2.1}Why Single Parity Can Fail}{67}{subsubsection.9.2.1}%
+\contentsline {paragraph}{Definition}{67}{section*.196}%
+\contentsline {paragraph}{Definition}{67}{section*.197}%
+\contentsline {paragraph}{Example}{67}{section*.198}%
+\contentsline {subsubsection}{\numberline {9.2.2}Hamming Distance is a Metric}{67}{subsubsection.9.2.2}%
+\contentsline {subsubsection}{\numberline {9.2.3}Minimum Distance}{67}{subsubsection.9.2.3}%
+\contentsline {paragraph}{Definition}{67}{section*.199}%
+\contentsline {paragraph}{Theorem}{68}{section*.200}%
+\contentsline {paragraph}{Step-by-Step}{68}{section*.201}%
+\contentsline {paragraph}{Example}{68}{section*.202}%
+\contentsline {subsection}{\numberline {9.3}Error Correction Capability}{68}{subsection.9.3}%
+\contentsline {paragraph}{Definition}{68}{section*.203}%
+\contentsline {paragraph}{Theorem}{68}{section*.204}%
+\contentsline {paragraph}{Example}{68}{section*.205}%
+\contentsline {subsubsection}{\numberline {9.3.1}(5,1) Repetition Code}{68}{subsubsection.9.3.1}%
+\contentsline {subsubsection}{\numberline {9.3.2}Repetition with an Extra Parity Bit}{69}{subsubsection.9.3.2}%
+\contentsline {paragraph}{Key Point}{69}{section*.206}%
+\contentsline {subsection}{\numberline {9.4}Generator Matrices for Encoding}{69}{subsection.9.4}%
+\contentsline {paragraph}{Definition}{69}{section*.207}%
+\contentsline {paragraph}{Example}{69}{section*.208}%
+\contentsline {subsubsection}{\numberline {9.4.1}Injectivity of Encoding}{69}{subsubsection.9.4.1}%
+\contentsline {paragraph}{Example}{69}{section*.209}%
+\contentsline {subsubsection}{\numberline {9.4.2}Linear Codes as Vector Subspaces}{70}{subsubsection.9.4.2}%
+\contentsline {subsubsection}{\numberline {9.4.3}Minimum Distance of a Linear Code}{70}{subsubsection.9.4.3}%
+\contentsline {paragraph}{Theorem}{70}{section*.210}%
+\contentsline {subsection}{\numberline {9.5}Parity-Check Matrices for Decoding}{70}{subsection.9.5}%
+\contentsline {subsubsection}{\numberline {9.5.1}Parity-Check Equation}{70}{subsubsection.9.5.1}%
+\contentsline {subsubsection}{\numberline {9.5.2}Simple Parity Example}{70}{subsubsection.9.5.2}%
+\contentsline {subsubsection}{\numberline {9.5.3}Systematic Form}{70}{subsubsection.9.5.3}%
+\contentsline {subsubsection}{\numberline {9.5.4}Generator Matrix of the $(5,2)$ Example}{71}{subsubsection.9.5.4}%
+\contentsline {subsubsection}{\numberline {9.5.5}Syndrome Example}{71}{subsubsection.9.5.5}%
+\contentsline {subsection}{\numberline {9.6}More on Hamming Codes}{71}{subsection.9.6}%
+\contentsline {subsubsection}{\numberline {9.6.1}The $(7,4)$ Hamming Code}{71}{subsubsection.9.6.1}%
+\contentsline {paragraph}{All 16 codewords generated by the given equations}{72}{section*.211}%
+\contentsline {subsubsection}{\numberline {9.6.2}Hamming Code Capability}{72}{subsubsection.9.6.2}%
+\contentsline {subsubsection}{\numberline {9.6.3}Parity-Check Matrix}{72}{subsubsection.9.6.3}%
+\contentsline {subsubsection}{\numberline {9.6.4}Single-Bit Syndrome Decoding}{72}{subsubsection.9.6.4}%
+\contentsline {paragraph}{Step-by-Step}{72}{section*.212}%
+\contentsline {subsubsection}{\numberline {9.6.5}Unit 1 / Test 1 Hamming Example Revisited}{73}{subsubsection.9.6.5}%
+\contentsline {subsubsection}{\numberline {9.6.6}Error Detection versus Correction Trade-off}{73}{subsubsection.9.6.6}%
+\contentsline {section}{\numberline {10}Cross-Unit Exam Workflow}{74}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Proving a Function is Injective}{74}{subsection.10.1}%
+\contentsline {paragraph}{Step-by-Step}{74}{section*.213}%
+\contentsline {subsection}{\numberline {10.2}Proving a Function is Surjective}{74}{subsection.10.2}%
+\contentsline {paragraph}{Step-by-Step}{74}{section*.214}%
+\contentsline {subsection}{\numberline {10.3}Proving an Equivalence Relation}{74}{subsection.10.3}%
+\contentsline {paragraph}{Common Trap}{74}{section*.215}%
+\contentsline {subsection}{\numberline {10.4}Finding an Equivalence Class}{75}{subsection.10.4}%
+\contentsline {paragraph}{Step-by-Step}{75}{section*.216}%
+\contentsline {subsection}{\numberline {10.5}Extended Euclidean Algorithm}{75}{subsection.10.5}%
+\contentsline {paragraph}{Step-by-Step}{75}{section*.217}%
+\contentsline {subsection}{\numberline {10.6}Finding a Modular Inverse}{75}{subsection.10.6}%
+\contentsline {subsection}{\numberline {10.7}Modular Exponentiation}{75}{subsection.10.7}%
+\contentsline {subsection}{\numberline {10.8}RSA}{76}{subsection.10.8}%
+\contentsline {subsection}{\numberline {10.9}Diffie-Hellman}{76}{subsection.10.9}%
+\contentsline {subsection}{\numberline {10.10}CRT}{76}{subsection.10.10}%
+\contentsline {subsection}{\numberline {10.11}Error-Correcting Codes}{76}{subsection.10.11}%
+\contentsline {subsection}{\numberline {10.12}Exam-Style Coverage}{77}{subsection.10.12}%
+\contentsline {section}{\numberline {11}Quick Formula and Definition Reference}{78}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Functions}{78}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Relations}{78}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Divisibility and GCD}{78}{subsection.11.3}%
+\contentsline {subsection}{\numberline {11.4}Modular Arithmetic}{78}{subsection.11.4}%
+\contentsline {subsection}{\numberline {11.5}RSA}{78}{subsection.11.5}%
+\contentsline {subsection}{\numberline {11.6}Diffie-Hellman}{79}{subsection.11.6}%
+\contentsline {subsection}{\numberline {11.7}El Gamal}{79}{subsection.11.7}%
+\contentsline {subsection}{\numberline {11.8}Linear Algebra}{79}{subsection.11.8}%
+\contentsline {subsection}{\numberline {11.9}Error-Correcting Codes}{79}{subsection.11.9}%
+\contentsline {section}{\numberline {12}Source Coverage Map}{80}{section.12}%

@@ -1,0 +1,3140 @@
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------
+% Format follows the user's py.tex template.
+% ---------------------------------------------------------
+\usepackage{textcomp}
+\usepackage{newtxtext,newtxmath}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    linktoc=all,
+    pdfborder={0 0 0}
+}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.8em}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    columns=fullflexible,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false
+}
+
+\title{\textbf{Foundations of Information Engineering \& Cryptography Notes}}
+\author{Cointreau}
+
+\newcommand{\Definition}{\paragraph{Definition}}
+\newcommand{\Step}{\paragraph{Step-by-Step}}
+\newcommand{\Example}{\paragraph{Example}}
+\newcommand{\Exam}{\paragraph{Worked Example}}
+\newcommand{\KeyPoint}{\paragraph{Key Point}}
+\newcommand{\Warning}{\paragraph{Common Trap}}
+
+\newcommand{\Theorem}{\paragraph{Theorem}}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% =========================================================
+\section{Unit 1 --- Introduction to Coding and Cryptography}
+% =========================================================
+
+\subsection{Short Introduction}
+
+\subsubsection{Digital Communication System}
+The models digital communication as a sequence of operations:
+\[
+\begin{array}{c}
+\text{Data Source}\rightarrow\text{Source Encoder}\rightarrow\text{Encrypter}\rightarrow\text{Channel Encoder}\rightarrow\text{Digital Modulator}\\
+\rightarrow\text{Channel}\rightarrow\text{Digital Demodulator}\rightarrow\text{Channel Decoder}\rightarrow\text{Decrypter}\rightarrow\text{Source Decoder}\rightarrow\text{Sink}.
+\end{array}
+\]
+\begin{itemize}
+    \item The source may contain bits, digits, or English characters. 
+    \item Source encoding can perform compression. 
+    \item Encryption provides secrecy, while channel encoding introduces redundancy for error handling.
+\end{itemize}
+
+\subsubsection{Bit Errors and Noise}
+Suppose $N$ bits are transmitted. Because of channel noise, the received bit vector may differ from the transmitted bit vector.
+
+\Definition A bit error occurs when a transmitted bit is received incorrectly. The probability that a bit error occurs is called the \textbf{bit error rate}.
+
+Let
+\[
+x=(x_1,x_2,\ldots,x_N),\qquad y=(y_1,y_2,\ldots,y_N).
+\]
+An error vector
+\[
+e=(e_1,e_2,\ldots,e_N),
+\]
+where $e_i=1$ when bit $i$ is in error and $e_i=0$ otherwise. Then
+\[
+y_i=x_i+e_i,
+\]
+where binary addition is logical XOR.
+
+\paragraph{XOR table}
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$A$ & $B$ & $A+B$\\
+\midrule
+0&0&0\\
+0&1&1\\
+1&0&1\\
+1&1&0\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Two Basic Strategies for Bit Errors}
+\begin{enumerate}
+    \item \textbf{Error correction:} include enough redundant information to identify which bits are in error and correct them.
+    \item \textbf{Error detection:} include enough redundant information to detect that an error occurred. The receiver may then request retransmission.
+\end{enumerate}
+
+\subsection{Basics of Cryptography}
+
+\subsubsection{Cryptology, Cryptography and Cryptanalysis}
+\Definition
+\begin{enumerate}
+    \item \textbf{Cryptology} is the science of making and breaking secret codes.
+    \item \textbf{Cryptography} is the development and use of codes and techniques for secure communications.
+    \item \textbf{Cryptanalysis} is breaking codes by exploiting weaknesses.
+\end{enumerate}
+
+\subsubsection{Four Main Goals of Cryptography}
+\begin{enumerate}
+    \item \textbf{Confidentiality}: only authorized users can read the message.
+    \item \textbf{Data integrity}: the message was not altered.
+    \item \textbf{Origin authentication}: the message is not a forgery and really comes from the stated sender.
+    \item \textbf{Non-repudiation}: the sender cannot later repudiate or refute the validity of the message sent.
+\end{enumerate}
+
+\subsubsection{Basic Language of Cryptography}
+Let $M$ be the message space, $K$ the key space, and $C$ the ciphertext space. The encryption as
+\[
+f:M\times K\rightarrow C,
+\qquad c=f(m,k_A),
+\]
+and decryption as
+\[
+g:C\times K\rightarrow M,
+\qquad m=g(c,k_B).
+\]
+
+\paragraph{Symmetric cryptography}
+Alice and Bob share a secret key $k_S$:
+\[
+c=f(m,k_S),\qquad m=g(c,k_S).
+\]
+
+\paragraph{Public-key cryptography}
+Bob has a public key $k_B^+$ and private key $k_B^-$:
+\[
+c=f(m,k_B^+),\qquad m=g(c,k_B^-).
+\]
+An additional requirement is that knowing the public key should make it computationally hard to determine the private key.
+
+\subsubsection{Key Space and Key Length}
+The key space $K$ is the set of all possible keys. Its size is $|K|$. It defines key length by
+\[
+\text{key length}=\log_2|K|\quad\text{bits}.
+\]
+Adding one bit doubles the key space. Longer keys generally increase security but also increase resource usage and computational load.
+
+\subsubsection{Classical Ciphers}
+Classifies classical ciphers mainly as substitution or transposition ciphers.
+
+\paragraph{Substitution}
+The order of letters is preserved but symbols are replaced.
+\begin{itemize}
+    \item Monoalphabetic substitution, including Caesar cipher.
+    \item Polyalphabetic substitution, including the Vigen\`ere cipher.
+\end{itemize}
+
+\paragraph{Transposition}
+The same letters are rearranged into a different order. A columnar transposition is the example.
+
+\subsubsection{Caesar Cipher}
+\Definition A Caesar cipher cyclically shifts every letter by a fixed number of positions. With $A=0,\ldots,Z=25$,
+\[
+f(m,k)=(m+k)\bmod 26,
+\]
+and decryption is
+\[
+g(c,k)=(c-k)\bmod 26.
+\]
+For a non-zero shift, it gives a key space of size 25.
+
+\Example Encrypt \texttt{HELLO} with a Caesar shift of $3$.
+
+\Step
+\begin{enumerate}
+    \item Use $A=0,\ldots,Z=25$.
+    \item Shift each letter forward by $3$.
+    \[
+    \begin{array}{c|ccccc}
+    \text{Plaintext} & H & E & L & L & O\\
+    \hline
+    \text{Value} & 7 & 4 & 11 & 11 & 14\\
+    \text{Shift} & 3 & 3 & 3 & 3 & 3\\
+    \text{Cipher value} & 10 & 7 & 14 & 14 & 17\\
+    \text{Ciphertext} & K & H & O & O & R
+    \end{array}
+    \]
+    \item Therefore the ciphertext is \texttt{KHOOR}.
+\end{enumerate}
+
+\subsubsection{Monoalphabetic Substitution and Frequency Analysis}
+A monoalphabetic cipher uses one fixed replacement mapping for the entire message. The example maps
+\[
+abc\ldots z\rightarrow mnbvcxzasdfghjklpoiuytrewq.
+\]
+The key space is $26!$, approximately $4\times10^{26}$, but the cipher is still vulnerable to frequency analysis because letter-frequency patterns are preserved.
+
+\Definition A frequency attack exploits the fact that some letters occur more often than others in natural language. It specifically notes that $e$ is the most common English letter.
+
+\subsubsection{Polyalphabetic Substitution and Vigen\`ere Cipher}
+The Vigen\`ere cipher as a method using multiple substitution alphabets so that frequency patterns are less directly exposed.
+
+\Step
+Suppose the message is $m=(m_1,\ldots,m_N)$ and the keyword is $k=(k_1,\ldots,k_n)$, where $n\le N$.
+\begin{enumerate}
+    \item Repeat the keyword until it matches the message length.
+    \item Convert letters to the numerical range 0--25.
+    \item Encrypt each message letter using a Caesar shift specified by the corresponding repeated keyword letter.
+    \item Reduce modulo 26.
+\end{enumerate}
+It gives key-space size $26^n$.
+
+\Example Encrypt \texttt{MOONCAKE} using keyword \texttt{BAY}.
+
+\Step
+\begin{enumerate}
+    \item Repeat the keyword to the message length:
+    \texttt{BAYBAYBA}.
+    \item Convert letters to numbers using $A=0,\ldots,Z=25$.
+    \item Apply a Caesar shift using the corresponding keyword letter.
+    \begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{c|cccccccc}
+    \toprule
+    Position & 1&2&3&4&5&6&7&8\\
+    \midrule
+    Plaintext & M&O&O&N&C&A&K&E\\
+    Plain value & 12&14&14&13&2&0&10&4\\
+    Key & B&A&Y&B&A&Y&B&A\\
+    Key value & 1&0&24&1&0&24&1&0\\
+    Sum mod 26 & 13&14&12&14&2&24&11&4\\
+    Ciphertext & N&O&M&O&C&Y&L&E\\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    \item Read the final row: \texttt{NOMOCYLE}.
+\end{enumerate}
+
+\KeyPoint The example shows Vigen\`ere with greater resistance to frequency attacks than Caesar cipher.
+
+\subsubsection{Columnar Transposition}
+\Step
+\begin{enumerate}
+    \item Write the plaintext row-by-row into a rectangular array whose row length is determined by the key length.
+    \item Add random null letters if necessary to fill the required matrix.
+    \item Determine the order of columns according to the alphabetical order of the key.
+    \item Read columns in that order.
+\end{enumerate}
+\Example The given uses key \texttt{ZEBRAS}. Its alphabetical column order is
+\[
+6,3,2,4,1,5.
+\]
+For the message \texttt{WE ARE DISCOVERED.FLEE AT ONCE}, with the given null letters, the example gives ciphertext \texttt{EVLNE ACDTK ESEAQ ROFOJ DEECU WIREE}. The key space for a six-letter key is $6!=240$.
+
+\subsubsection{Kerckhoffs's Principle and Security by Obscurity}
+\Definition The Kerckhoffs principle states that Eve may know the cryptographic system, but not the secret key. Modern cryptography is based on the idea that the system need not be secret.
+
+\paragraph{Why this is useful}
+\begin{itemize}
+    \item It is easier to keep a key secret than an entire system.
+    \item It is easier to change a key than replace a whole system.
+    \item Different users can use the same system with different secret keys.
+\end{itemize}
+
+\subsection{Modulo Arithmetic for Cryptography}
+
+\subsubsection{Modulo Representation}
+It represents the alphabet as
+\[
+M=C=\{0,1,\ldots,25\},
+\]
+with $A=0,B=1,\ldots,Z=25$.
+
+\Definition Two integers $a$ and $b$ are congruent modulo $n$ if they have the same remainder when divided by $n$:
+\[
+a\equiv b\pmod n.
+\]
+
+\Example
+\[
+28\equiv4\pmod{12},\qquad 25\equiv33\pmod 8.
+\]
+
+\Step
+Caesar encryption can therefore be expressed exactly as
+\[
+f(m,k)=(m+k)\bmod26.
+\]
+For decryption,
+\[
+g(c,k)=(c-k)\bmod26.
+\]
+
+\subsubsection{Congruence Preserved by Arithmetic}
+If $a\equiv c\pmod n$ and $b\equiv d\pmod n$, then we states that congruence is preserved under addition, subtraction and multiplication:
+\[
+a+b\equiv c+d\pmod n,
+\]
+\[
+a-b\equiv c-d\pmod n,
+\]
+\[
+ab\equiv cd\pmod n.
+\]
+
+\Step{Proof idea for addition}
+If $a=kn+c$ and $b=hn+d$, then
+\[
+a+b=(k+h)n+(c+d),
+\]
+so $a+b$ and $c+d$ have the same remainder modulo $n$.
+
+\Example
+\[
+10\times16\times17+25\times5-37
+\equiv1\times1\times2+1\times2-1
+\equiv0\pmod3.
+\]
+
+\subsubsection{A Divisibility Rule from Modulo Arithmetic}
+The example proves the divisibility rule for 9.
+
+\Step
+Write an $n$-digit number as
+\[
+x=a_{n-1}10^{n-1}+a_{n-2}10^{n-2}+\cdots+a_1 10+a_0.
+\]
+Because $10\equiv1\pmod9$, every $10^i\equiv1\pmod9$. Therefore,
+\[
+x\equiv a_{n-1}+a_{n-2}+\cdots+a_1+a_0\pmod9.
+\]
+So the number is divisible by 9 exactly when its digit sum is divisible by 9.
+
+\Example $4563$ is divisible by 9 because $4+5+6+3=18$. The example contrasts this with $3145$, whose digit sum is $13$.
+
+\subsection{Basics of Error Detection and Correction}
+
+\subsubsection{HKID Example}
+The example gives a Hong Kong ID example using weights
+\[
+9,8,7,6,5,4,3,2,1
+\]
+and a modulo-11 check. The example's alphabet mapping is $A=10$, $B=11$, and so on through $Z=35$, with space represented by 36. The example reduces the weighted sum to
+\[
+5+8+9+3+7+2+7+5+x\equiv0\pmod{11},
+\]
+so
+\[
+x\equiv-2\equiv9\pmod{11}.
+\]
+
+\subsubsection{Single Parity Check}
+\Definition Add one parity bit to $k$ information bits so that the total number of 1s is even (for even parity).
+
+This creates a $(k+1,k)$ code. It can detect a single-bit error, but the receiver does not know which bit is wrong.
+
+\Step
+\begin{enumerate}
+    \item Count the 1s in the information bits.
+    \item Add a parity bit that makes the total count even.
+    \item At the receiver, check whether the total number of 1s is still even.
+\end{enumerate}
+
+\subsubsection{Two-Dimensional Parity Check}
+We uses a two-dimensional array of bits with row and column parity. It gives the activity of arranging \texttt{1010101010101011} in a $4\times4$ array, computing parity bits, and checking the consistency of the final corner parity. The method is able to locate a single-bit error by identifying the row and column whose parity checks fail.
+
+\subsubsection{Repetition Code}
+\Definition A repetition code repeats each bit a fixed number of times. With three repetitions,
+\[
+0\mapsto000,\qquad1\mapsto111.
+\]
+Decoding can be done by majority vote.
+
+\Example The example gives received word \texttt{010}; majority is 0, so the decoded bit is 0.
+
+\subsubsection{$(n,k)$ Binary Codes}
+A given $(n,k)$ binary code contains:
+\begin{itemize}
+    \item $k$ information bits,
+    \item $r$ redundant/parity bits,
+    \item $n=k+r$ coded bits.
+\end{itemize}
+The code $C$ contains $2^k$ codewords in $\mathbb{B}^n$.
+
+\Definition An encoding is systematic if the information bits appear directly as part of the coded output; the parity bits do not have to come after the information bits.
+
+\Example The example discusses a $(4,3)$ even-parity code and a $(5,1)$ repetition code.
+
+\subsubsection{A Non-Systematic Example}
+The example gives
+\[
+c_1=u_1,\qquad c_2=u_1+u_2+u_3,\qquad c_3=u_2+u_3,\qquad c_4=u_1+u_2,
+\]
+with binary addition. The code is non-systematic because the information bits $u_2$ and $u_3$ do not appear individually as coded positions.
+
+\subsubsection{Code Rate}
+\Definition For an $(n,k)$ code,
+\[
+R_c=\frac{k}{n}.
+\]
+It measures the proportion of transmitted bits that carry useful information. If a link transmits $W$ bits/s, the effective information rate is $R_cW$ bits/s.
+
+\Example
+If 7 information bits are encoded with a single parity check, the code is $(8,7)$, so
+\[
+R_c=\frac78.
+\]
+For a 1 Mbps link the useful information rate is therefore
+\[
+\frac78(1\text{ Mbps})=0.875\text{ Mbps}.
+\]
+
+\subsubsection{Hamming Code}
+It introduces Richard Hamming's famous $(7,4)$ code. It is designed for single-bit correction and double-bit-error detection capability.
+
+The given encoding equations are
+\[
+\begin{aligned}
+ c_1&=u_1, & c_2&=u_2, & c_3&=u_3, & c_4&=u_4,\\
+ c_5&=u_1+u_2+u_4,\\
+ c_6&=u_1+u_3+u_4,\\
+ c_7&=u_2+u_3+u_4.
+\end{aligned}
+\]
+
+Its rate is
+\[
+R_c=\frac47.
+\]
+
+\paragraph{Worked Example: Decoding}
+Worked Example: received vector
+\[
+y=(0,1,0,1,1,0,0),
+\]
+and assumes at most one bit is in error. Using the three parity relationships represented by the Hamming-code Venn diagram, the example solution identifies the first bit as the erroneous bit and therefore recovers message
+\[
+(u_1,u_2,u_3,u_4)=(1,1,0,1).
+\]
+
+\paragraph{Comparison with two-dimensional parity}
+The comparison the $(7,4)$ Hamming code with the two-dimensional parity-check code using a $2\times2$ information array. Both can correct a single-bit error in the described setup, but the Hamming code is more communication-efficient because its rate $4/7$ is greater than the two-dimensional parity code rate $4/9$.
+
+\newpage
+% =========================================================
+\section{Unit 2 --- Functions}
+% =========================================================
+
+\subsection{Opening Idea: Different Sizes of Infinity}
+It begins with the natural numbers
+\[
+\{1,2,3,4,\ldots\}
+\]
+and even numbers
+\[
+\{2,4,6,8,\ldots\}
+\]
+and asks which set is larger. The point is that the two sets have the same size in the sense developed later through bijections.
+
+The material also introduces Cantor's idea that there are different infinities and Hilbert's Hotel as a thought experiment illustrating this idea.
+
+\subsection{Sets}
+
+\Definition A set is a collection of objects. If $x$ is an element of $A$, write $x\in A$; otherwise $x\notin A$.
+
+\Example
+\[
+A=\{1,3,5,7\}.
+\]
+Then $1\in A$ but $2\notin A$.
+
+\Definition The empty set $\varnothing$ contains no elements.
+
+\paragraph{Common Sets}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+Symbol & Name & Typical notation\\
+\midrule
+$\mathbb N$ & Natural numbers & $0,1,2,3,\ldots$ (some conventions omit 0)\\
+$\mathbb Z$ & Integers & $\ldots,-2,-1,0,1,2,\ldots$\\
+$\mathbb B$ & Binary numbers & $\{0,1\}$\\
+$\mathbb Q$ & Rational numbers & rationals\\
+$\mathbb R$ & Real numbers & reals\\
+$\mathbb C$ & Complex numbers & complex numbers\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Ordered Pairs}
+\Definition $(x,y)$ is an ordered pair. Two ordered pairs are equal exactly when the first coordinates are equal and the second coordinates are equal.
+
+\KeyPoint Order matters:
+\[
+(a,b)\ne(b,a)
+\]
+in general.
+
+\subsubsection{Cartesian Product}
+\Definition
+\[
+X\times Y=\{(x,y):x\in X,\ y\in Y\}.
+\]
+
+\Example If $X=\{1,2\}$ and $Y=\{3,4,5\}$, then
+\[
+X\times Y=\{(1,3),(1,4),(1,5),(2,3),(2,4),(2,5)\}.
+\]
+
+\subsubsection{Power Set}
+\Definition The power set $\mathcal P(A)$ is the set of all subsets of $A$.
+
+\Example For $A=\{1,2,3\}$, the power set has $8$ subsets, including $\varnothing$, the three one-element subsets, the three two-element subsets, and $A$ itself.
+
+\subsubsection{Partitions}
+\Definition A partition of $A$ is a collection of non-empty subsets whose union is $A$ and which are pairwise disjoint.
+
+\Example For $A=\{1,2,3,4\}$, both
+\[
+\{\{1\},\{2,3\},\{4\}\}
+\]
+and
+\[
+\{\{1,2\},\{3,4\}\}
+\]
+are valid partitions. A collection whose parts overlap, or which leaves an element uncovered, is not a partition.
+
+\subsection{Functions}
+
+\Definition A function $f:X\rightarrow Y$ assigns each $x\in X$ to exactly one $y\in Y$, written $y=f(x)$.
+
+The set $X$ is the domain, $Y$ is the codomain, and the range is the set of actual output values.
+
+\KeyPoint
+\[
+\text{range}(f)\subseteq\text{codomain}(f).
+\]
+
+\Example A function represented as a set of ordered pairs may be
+\[
+f=\{(a,2),(b,4),(c,2)\}.
+\]
+Each input has exactly one output.
+
+\subsubsection{Inverse Image}
+For $y\in Y$, the inverse image of $y$ is the set of all $x\in X$ such that $f(x)=y$.
+
+\Example If the outputs are arranged so that one codomain element has no preimage and another has two preimages, the inverse image is a set rather than one element.
+
+\subsubsection{Composition of Functions}
+\Definition For compatible functions $f$ and $g$,
+\[
+(g\circ f)(x)=g(f(x)).
+\]
+Always perform $f$ first, then $g$.
+
+\Step
+\begin{enumerate}
+    \item Start with $x$.
+    \item Apply $f$.
+    \item Feed the result into $g$.
+\end{enumerate}
+
+\Example If $f(n)=n^2$ and $g(n)=n+1$, then
+\[
+(g\circ f)(n)=n^2+1,
+\]
+while
+\[
+(f\circ g)(n)=(n+1)^2.
+\]
+Therefore composition is not commutative.
+
+\KeyPoint $g\circ f$ is only well-defined when the range of $f$ is contained in the domain of $g$.
+
+\subsubsection{Composition Example}
+The example defines $f$ on the non-negative reals by $f(x)=3e^{2x}$ and $g(x)=2x^2$.
+
+\Step
+\[
+(g\circ f)(x)=g(f(x))=2(3e^{2x})^2=18e^{4x}.
+\]
+For $x\ge0$, the minimum occurs at $x=0$, giving $18$. Thus the range is the set of real values at least $18$. Because this is a proper subset of the codomain $\mathbb R$, the composition is not surjective and therefore has no inverse function.
+
+\subsection{Injections and Surjections}
+
+\Definition A function is \textbf{injective} if no two distinct inputs have the same output.
+
+\Step{Standard proof pattern}
+\begin{enumerate}
+    \item Assume $f(x_1)=f(x_2)$.
+    \item Algebraically simplify the equality.
+    \item If the result forces $x_1=x_2$, the function is injective.
+\end{enumerate}
+
+\Definition A function is \textbf{surjective} if every element of its codomain is attained. Equivalently, range = codomain.
+
+\begin{enumerate}
+    \item To prove surjectivity, show that for every $y$ in the codomain, there exists an $x$ in the domain such that $f(x)=y$.
+    \item To disprove surjectivity, find one element of the codomain that is not an output of the function.
+\end{enumerate}
+
+\Definition A \textbf{bijection} is both injective and surjective.
+
+\subsubsection{Identity Function}
+\[
+I_X(x)=x.
+\]
+The identity function is a bijection.
+
+\subsubsection{Inverse Function}
+A bijection has an inverse. The inverse reverses the original mapping.
+
+\Step{Finding an inverse}
+\begin{enumerate}
+    \item Start from $y=f(x)$.
+    \item Solve for $x$ in terms of $y$.
+    \item Rename the resulting expression as $f^{-1}(y)$.
+\end{enumerate}
+
+\Example 
+\[
+y=3e^{2(x-1)}.
+\]
+Then
+\[
+\ln\left(\frac y3\right)=2(x-1),
+\]
+so
+\[
+x=\frac12\ln\left(\frac y3\right)+1.
+\]
+Hence
+\[
+f^{-1}(y)=\frac12\ln\left(\frac y3\right)+1.
+\]
+
+\subsubsection{Important Counterexample}
+It emphasizes that a function such as $f(x)=x^2$ on all of $\mathbb R$ is not invertible because it is not injective.
+
+\subsubsection{A Floor-Function Example}
+The example defines
+\[
+f(n)=\left\lfloor\frac{3n+1}{3}\right\rfloor
+\]
+from non-negative integers to non-negative integers.
+\begin{enumerate}
+    \item Determine whether $f$ is injective.
+    \item Determine whether $f$ is surjective.
+\end{enumerate}
+
+Because $f(0)=1$ and the function never reaches $0$, it is not surjective.
+
+\[
+\frac{3n+1}{3}=n+\frac13
+\]
+\[
+f(n)=\left\lfloor n+\frac13\right\rfloor=n
+\]
+
+Therefore distinct inputs have distinct outputs, so the function is injective.
+
+\subsubsection{Modulo-10 Function}
+The given test asks whether
+\[
+f:\mathbb Z\rightarrow\mathbb Z,\qquad f(n)=n\bmod10
+\]
+is an injection.
+
+\Step{Disproof by counterexample}
+\[
+f(1)=1,\qquad f(11)=1.
+\]
+Since $1\ne11$ but the outputs are equal, $f$ is not injective.
+
+\subsection{Countable and Uncountable Sets}
+\Definition
+\begin{enumerate}
+    \item A finite set has a finite number of elements. Its cardinality is written $|S|$.
+    \item Two sets have the same cardinality if there is a bijection between them.
+    \item $|A|\le|B|$ when there is an injection from $A$ to $B$.
+    \item A set is countable when it is finite or can be put in bijection with the natural numbers. A set that is not countable is uncountable.
+\end{enumerate}
+
+\subsubsection{Countable Examples}
+The example shows that the even numbers are countable because the mapping $n\mapsto2n$ provides a one-to-one correspondence with the natural numbers.
+
+The integers are also countable. The example presents an explicit listing argument.
+
+The positive rational numbers are countable by an enumeration in which fractions are arranged systematically; repeated representations can be handled so that the set can be listed.
+
+\subsubsection{Union of Countable Sets}
+\Definition Theorem If $A$ and $B$ are countable, then $A\cup B$ is countable.
+
+\Step{Idea for proof}
+Interleave the two countable listings and skip duplicates when necessary.
+
+\subsubsection{Uncountability of an Interval}
+We uses Cantor's diagonal argument to show that $(0,1)$ is uncountable.
+
+\Step{Diagonal idea}
+\begin{enumerate}
+    \item Assume all elements of $(0,1)$ can be listed.
+    \item Construct a new decimal whose $n$-th digit differs from the $n$-th digit of the $n$-th listed number.
+    \item The constructed decimal differs from every listed number in at least one digit.
+    \item Therefore the list was not complete, giving a contradiction.
+\end{enumerate}
+
+Then we states that $\mathbb R$ is uncountable and that the irrational numbers $\mathbb R\setminus\mathbb Q$ are uncountable.
+
+\subsection{Hash Functions}
+\Definition A hash function $H$ maps an input of arbitrary length to a fixed-length output called a hash or digest.
+
+\paragraph{Uses stated}
+Integrity checking, fast lookup, and security applications.
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+ & \textbf{Cryptographic} & \textbf{Non-cryptographic}\\
+\midrule
+Security & High & Low\\
+Speed & Moderate & Very fast\\
+Uses & Password hashing, digital signatures & Hash tables, indexing, checksum\\
+Examples & SHA-256, SHA-3 & MurmurHash, DJBX33A\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Overflow}
+This section explains that when the computed value exceeds the 32-bit unsigned limit, the arithmetic wraps around by effectively retaining the least significant 32 bits, which is equivalent to reducing modulo $2^{32}$.
+
+\subsubsection{Why a Fixed-Length Hash Cannot Be an Injection Here}
+This section observes that arbitrary-length input strings form a countably infinite collection, while a fixed 32-bit output has only finitely many possible values. Therefore distinct inputs must eventually collide, so the described hash cannot be injective.
+
+\newpage
+% =========================================================
+\section{Unit 3 --- Relations}
+% =========================================================
+
+\subsection{Definition of Relations}
+\Definition A binary relation $R$ from a set $A$ to a set $B$ is a subset of $A\times B$. A binary relation on $A$ is a subset of $A^2$.
+
+We write
+\[
+xRy\iff(x,y)\in R.
+\]
+
+\Example The marriage relation is a subset of the set of men in Hong Kong crossed with the set of women in Hong Kong. Another example is the less-than relation on $\mathbb R$, where $(x,y)$ belongs to the relation exactly when $x<y$.
+
+\Example Modulo-2 relation on $\mathbb Z$:
+\[
+mEn\iff m-n\text{ is even}.
+\]
+Thus $4E6$ is true, while $5E2$ is false. The integers related to 1 are exactly the odd integers.
+
+\subsubsection{Relation versus Function}
+A function is a special kind of relation: for each input there is exactly one output. Every function is a relation, but not every relation is a function.
+
+\subsubsection{Inverse Relation}
+\Definition If $R\subseteq A\times B$, then the inverse relation is
+\[
+R^{-1}=\{(y,x):(x,y)\in R\}.
+\]
+It is obtained by swapping each ordered pair.
+
+\Example If $R$ contains $(2,6)$, then $R^{-1}$ contains $(6,2)$.
+
+\subsubsection{Composition of Relations}
+If $R\subseteq A\times B$ and $S\subseteq B\times C$, then
+\[
+a(S\circ R)c
+\]
+when there exists some $b\in B$ such that $aRb$ and $bSc$.
+
+\Step
+Apply $R$ first, then $S$, just as in composition of functions.
+
+\subsubsection{$k$-ary Relations}
+A $k$-ary relation is a subset of
+\[
+A_1\times A_2\times\cdots\times A_k.
+\]
+Binary means $k=2$, ternary means $k=3$, and unary means a subset of one set.
+
+This section examples include prime numbers as a unary relation, twin prime pairs $(3,5),(5,7),(11,13)$ as examples of a binary relation, and Pythagorean triples such as $(3,4,5)$ as a ternary relation.
+
+\subsubsection{Directed Graph Representation}
+For a relation on $A$, draw an arrow $x\rightarrow y$ when $xRy$.
+
+\Example Use even-difference divisibility on $A=\{3,4,5,6,7,8\}$ to illustrate a directed graph.
+
+\subsection{Properties of Relations}
+
+\Definition A relation $R$ on $A$ is:
+\begin{itemize}
+    \item \textbf{Reflexive}: $xRx$ for every $x\in A$.
+    \item \textbf{Symmetric}: $xRy\Rightarrow yRx$.
+    \item \textbf{Transitive}: $xRy$ and $yRz\Rightarrow xRz$.
+    \item \textbf{Antisymmetric}: $xRy$ and $yRx\Rightarrow x=y$.
+\end{itemize}
+
+\Step{How to test a relation}
+Check each property independently. To disprove a property, one counterexample is enough.
+
+\Example Less-than $<$ on $\mathbb R$ is not reflexive, is not symmetric, and is transitive. Use less-than-or-equal-to as the example for antisymmetry: if $m\le n$ and $n\le m$, then $m=n$.
+
+\subsubsection{Congruence Modulo 3}
+The relation $aRb$ when $a-b$ is divisible by 3 is used in this section as an example of an equivalence relation. Reflexivity, symmetry and transitivity are each checked directly from integer arithmetic.
+
+\subsubsection{Divisibility as a Relation}
+The relation $xRy\iff x\mid y$ is reflexive, antisymmetric and transitive, but not symmetric. This connection is later used in Unit 4 when partial order language is introduced.
+
+\subsection{Equivalence Relations}
+\Definition An equivalence relation is a relation that is simultaneously reflexive, symmetric and transitive.
+
+\subsubsection{Motivation}
+Use different representations of the same rational number, such as
+\[
+\frac12=\frac24=\frac36=\frac48,
+\]
+to motivate the idea of grouping objects that are different in form but equivalent in the intended sense.
+
+\subsubsection{Partition-Induced Relation}
+Given a partition $P$ of $A$, define
+\[
+xRy\iff\text{$x$ and $y$ are in the same part of }P.
+\]
+It follows that this induced relation is an equivalence relation.
+
+\subsubsection{Test 1 Partition Example}
+Worked example
+\[
+A=\{a,b,c,d,e\},\qquad P=\{\{a,b\},\{c,d\},\{e\}\}.
+\]
+The relation consists of all ordered pairs lying within the same part:
+\[
+\begin{aligned}
+R=\{&(a,a),(a,b),(b,a),(b,b),\\
+&(c,c),(c,d),(d,c),(d,d),(e,e)\}.
+\end{aligned}
+\]
+Because it is induced by a partition, the relation is an equivalence relation.
+
+\subsection{Equivalence Classes}
+\Definition For an equivalence relation $R$ on $A$, the equivalence class of $a$ is
+\[
+[a]=\{x\in A:xRa\}.
+\]
+Because of reflexivity, $a\in[a]$.
+
+\KeyPoint Any two equivalence classes are either equal or disjoint. The full set of equivalence classes forms a partition.
+
+\Example For the parity relation on suitable integer sets, there are two classes: even and odd numbers.
+
+\Example For congruence modulo 3, the classes are
+\[
+[0]=\{\ldots,-6,-3,0,3,6,\ldots\},
+\]
+\[
+[1]=\{\ldots,-5,-2,1,4,7,\ldots\},
+\]
+\[
+[2]=\{\ldots,-4,-1,2,5,8,\ldots\}.
+\]
+Also $[3]=[0]$.
+
+\subsubsection{Proof of the Disjoint-or-Equal Property}
+Suppose two equivalence classes overlap. Let an element belong to both classes. Using symmetry and transitivity, this section shows that every element in one class must belong to the other, hence the classes are equal.
+
+\subsubsection{Equivalence Class Example}
+For
+\[
+f(x,y)=\sqrt{x^2+y^2}
+\]
+and the relation
+\[
+(x,y)S(p,q)\iff f(x,y)=f(p,q),
+\]
+the class of $(1,1)$ is
+\[
+[(1,1)]=\{(x,y)\in\mathbb R^2:x^2+y^2=2\}.
+\]
+It is a circle centered at the origin with radius $\sqrt2$.
+
+\subsection{More Examples of Equivalence Relations}
+
+\subsubsection{Binary Sequences by Parity of Number of 1s}
+For binary sequences of length $n$, define $xRy$ when $x$ and $y$ contain either both an odd number of 1s or both an even number of 1s. The example gives $(111,010)$ as an example of related sequences for $n=3$.
+
+\subsubsection{Logic Circuit Equivalence}
+For the set of all two-input, one-output logic circuits, define $c_1Rc_2$ when they have the same input/output table. The relation is an equivalence relation. With two inputs and one output, this section notes $2^4=16$ equivalence classes.
+
+\subsubsection{Calendar Modulo 7}
+This section models days in a month using congruence modulo 7. For example,
+\[
+[1]=\{1,8,15,22,29\},
+\]
+and the given calendar associates the seven classes with Thursday through Wednesday. All dates with the same remainder modulo 7 form one equivalence class.
+
+\subsubsection{Pure Mathematics Example}
+On $\mathbb R^2$, define
+\[
+(x_1,y_1)R(x_2,y_2)\iff x_1-x_2=n\quad\text{for some }n\in\mathbb Z.
+\]
+We can prove this directly: this is an equivalence relation. An equivalence class consists of points whose $x$-coordinates differ from a reference point by an integer. For example,
+\[
+[(2,1)]=\{(x,y):x-2\in\mathbb Z\}.
+\]
+
+\subsubsection{Relation Example}
+Worked example
+\[
+(x,y)R(p,q)\iff x-y=p-q.
+\]
+It is reflexive, symmetric and transitive. Each equivalence class satisfies
+\[
+x-y=c
+\]
+for some constant $c$, so each class is a straight line of slope 1. The class through a point whose difference is $-2$ is
+\[
+x-y=-2,
+\]
+or equivalently $y=x+2$.
+
+\newpage
+% =========================================================
+\section{Unit 4 --- Divisibility and Euclidean Algorithm}
+% =========================================================
+
+\subsection{Number Theory and Cryptography}
+Number theory studies integers and operations on them. This section emphasizes its importance in modern cryptography, including secure communications, online transactions and e-banking.
+
+\subsection{Divisibility}
+\Definition For integers $n$ and $d$, we say $d$ divides $n$ if there exists $k\in\mathbb Z$ such that
+\[
+n=dk.
+\]
+Notation:
+\[
+d\mid n.
+\]
+Then $d$ is a factor or divisor of $n$, and $n$ is a multiple of $d$.
+
+\Example
+Determine whether $3\mid12$.
+
+\Step
+\begin{enumerate}
+    \item Start from the definition: $3\mid12$ means that $12=3k$ for some integer $k$.
+    \item Compute $12\div3=4$.
+    \item Since $4\in\mathbb Z$, the required integer $k$ exists.
+    \item Therefore, $12=3\times4$, so $3\mid12$.
+\end{enumerate}
+
+\subsubsection{Divisibility as a Relation}
+Define $xRy\iff x\mid y$.
+
+\Step
+\begin{enumerate}
+    \item Reflexive: $x\mid x$ because $x=x\times1$.
+    \item Antisymmetric: if $x\mid y$ and $y\mid x$, then the only possible positive scaling between them is 1, so $x=y$.
+    \item Not symmetric: $2\mid4$, but $4\nmid2$.
+    \item Transitive: if $x\mid y$ and $y\mid z$, write $y=xk$ and $z=y\ell$. Then $z=x(k\ell)$, so $x\mid z$.
+\end{enumerate}
+Thus divisibility is an example of a partial order in the material.
+
+\subsubsection{Quotient-Remainder Theorem}
+\Definition For an integer $n$ and positive integer $d$, there are unique integers $q$ and $r$ such that
+\[
+n=dq+r,\qquad 0\le r<d.
+\]
+Here $q$ is the quotient and $r$ is the remainder.
+
+\Step{Reading a division}
+For positive integers, repeatedly subtract groups of size $d$ until the remainder is smaller than $d$.
+
+\Example
+Find the quotient and remainder when $29$ is divided by $6$.
+
+\Step
+\begin{align*}
+29&=6(4)+5\\
+q&=4\\
+r&=5.
+\end{align*}
+Check the condition:
+\[
+0\le5<6.
+\]
+Therefore,
+\[
+29\,\mathrm{div}\,6=4,\qquad29\,\mathrm{mod}\,6=5.
+\]
+
+\subsection{Primes and Co-primes}
+\Definition A prime number is an integer $p>1$ whose only positive divisors are $1$ and $p$.
+
+\Definition A composite number is an integer $n>1$ that is not prime.
+
+\KeyPoint $1$ is not prime.
+
+\Example Classify $1$, $2$ and $4$.
+
+\Step
+\begin{enumerate}
+    \item $1$ is not prime because the definition requires $p>1$.
+    \item $2$ has only positive divisors $1$ and $2$, so $2$ is prime.
+    \item $4$ has positive divisors $1,2,4$. Since $2\mid4$ in addition to $1$ and $4$, $4$ is composite.
+\end{enumerate}
+
+\subsubsection{Infinitely Many Primes}
+\Theorem There are infinitely many primes.
+
+\Step{Euclid's proof}
+\begin{enumerate}
+    \item Assume there are only finitely many primes $p_1,p_2,\ldots,p_k$.
+    \item Form
+    \[
+    Q=p_1p_2\cdots p_k+1.
+    \]
+    \item Let $p$ be a prime divisor of $Q$.
+    \item If one of the listed primes, say $p_j$, divided $Q$, then $p_j$ would also divide
+    \[
+    Q-p_1p_2\cdots p_k=1,
+    \]
+    which is impossible.
+    \item Therefore $p$ is a prime not in the original list.
+    \item This contradicts the assumption that the list contained all primes.
+\end{enumerate}
+Hence there must be infinitely many primes.
+
+\subsubsection{Greatest Common Divisor}
+\Definition $\gcd(a,b)$ is the largest positive integer dividing both $a$ and $b$.
+
+\Example
+Find $\gcd(24,16)$.
+
+\Step
+\begin{enumerate}
+    \item List the positive divisors of $24$:
+    \[
+    1,2,3,4,6,8,12,24.
+    \]
+    \item List the positive divisors of $16$:
+    \[
+    1,2,4,8,16.
+    \]
+    \item Find the common divisors:
+    \[
+    1,2,4,8.
+    \]
+    \item The largest common divisor is $8$.
+\end{enumerate}
+Therefore,
+\[
+\gcd(24,16)=8.
+\]
+
+\Definition Two integers are co-prime if their greatest common divisor is $1$.
+
+\Example Determine whether $14$ and $9$ are co-prime.
+
+\Step
+\[
+\gcd(14,9)=1.
+\]
+Therefore $14$ and $9$ are co-prime.
+
+\subsubsection{Euler's Totient Function}
+\Definition $\varphi(n)$ counts the positive integers from $1$ to $n$ that are co-prime with $n$.
+
+Small values include
+\[
+\varphi(1)=1,\quad\varphi(2)=1,\quad\varphi(3)=2,\quad\varphi(4)=2,\quad\varphi(5)=4,\quad\varphi(6)=2.
+\]
+
+For a prime $p$,
+\[
+\varphi(p^k)=p^k-p^{k-1}=p^{k-1}(p-1).
+\]
+If $m$ and $n$ are co-prime,
+\[
+\varphi(mn)=\varphi(m)\varphi(n).
+\]
+
+\Example
+Find $\varphi(12)$ directly.
+
+\Step
+\begin{enumerate}
+    \item The positive integers from $1$ to $12$ are
+    \[
+    1,2,3,4,5,6,7,8,9,10,11,12.
+    \]
+    \item Keep the values co-prime with $12$:
+    \[
+    1,5,7,11.
+    \]
+    \item There are four such values.
+\end{enumerate}
+Therefore,
+\[
+\varphi(12)=4.
+\]
+
+\Exam{Totient equation}
+Suppose
+\[
+\varphi(p^2)=272.
+\]
+Find the prime $p$.
+
+\Step
+\begin{enumerate}
+    \item Since $p$ is prime,
+    \[
+    \varphi(p^2)=p(p-1).
+    \]
+    \item Substitute the given value:
+    \[
+    p(p-1)=272.
+    \]
+    \item Expand:
+    \[
+    p^2-p-272=0.
+    \]
+    \item Factor or solve the quadratic equation:
+    \[
+    (p-17)(p+16)=0.
+    \]
+    \item Therefore $p=17$ or $p=-16$.
+    \item A prime number is positive and greater than $1$, so reject $-16$.
+\end{enumerate}
+Hence,
+\[
+p=17.
+\]
+
+Now suppose
+\[
+\varphi(pq^2)=672.
+\]
+With $p=17$ and co-prime primes $p,q$,
+\[
+\varphi(pq^2)=(p-1)q(q-1).
+\]
+Thus
+\[
+16q(q-1)=672,
+\]
+so
+\[
+q(q-1)=42,
+\]
+\[
+q^2-q-42=0,
+\]
+\[
+(q-7)(q+6)=0.
+\]
+Reject $q=-6$ and obtain
+\[
+q=7.
+\]
+
+\subsection{Euclidean Algorithm}
+\subsubsection{Three Ways to Compute a GCD}
+Possible methods are:
+\begin{enumerate}
+    \item Prime factorization.
+    \item Search through possible divisors.
+    \item Euclidean algorithm.
+\end{enumerate}
+The Euclidean algorithm is the efficient method used throughout the material.
+
+\subsubsection{Euclidean Algorithm}
+\Theorem If
+\[
+a=bq+r,
+\]
+then
+\[
+\gcd(a,b)=\gcd(b,r).
+\]
+
+\Step{Procedure}
+\begin{enumerate}
+    \item Start with $a\ge b\ge0$.
+    \item Divide $a$ by $b$ and record the remainder $r$.
+    \item Replace $(a,b)$ by $(b,r)$.
+    \item Continue until the remainder becomes $0$.
+    \item The previous non-zero remainder is the gcd.
+\end{enumerate}
+
+\Example
+Compute $\gcd(416,39)$.
+
+\Step{Step-by-step calculation}
+\begin{align*}
+416&=39(10)+26,\\
+39&=26(1)+13,\\
+26&=13(2)+0.
+\end{align*}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c c c c}
+\toprule
+Step & Dividend & Divisor & Remainder\\
+\midrule
+1 & 416 & 39 & 26\\
+2 & 39 & 26 & 13\\
+3 & 26 & 13 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The last non-zero remainder is $13$, so
+\[
+\boxed{\gcd(416,39)=13}.
+\]
+
+\paragraph{Why it works}
+If $a=bq+r$, every common divisor of $a$ and $b$ also divides $r=a-bq$. Conversely, every common divisor of $b$ and $r$ also divides $a=bq+r$. Therefore the two pairs have exactly the same common divisors and hence the same gcd.
+
+\subsection{Extended Euclidean Algorithm}
+\Definition A B\'ezout identity expresses the gcd as
+\[
+\gcd(a,b)=ax+by
+\]
+for some integers $x,y$. The coefficients are called B\'ezout coefficients and are not unique in general.
+
+\paragraph{Certificate Lemma}
+If $d$ divides both $a$ and $b$ and
+\[
+d=ax+by
+\]
+for integers $x,y$, then $d=\gcd(a,b)$.
+
+\Step{Extended Euclidean Algorithm}
+Start with the two original numbers. For each new remainder, keep the coefficients of the original $a$ and $b$.
+
+\Exam{$\gcd(240,46)$}
+
+\Step{1. Ordinary Euclidean divisions}
+\begin{align*}
+240&=46(5)+10,\\
+46&=10(4)+6,\\
+10&=6(1)+4,\\
+6&=4(1)+2,\\
+4&=2(2)+0.
+\end{align*}
+
+\Step{2. Full coefficient table}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{r r r r l}
+\toprule
+Row & x & y & r & Relation\\
+\midrule
+A & 1 & 0 & 240 & $240=240(1)+46(0)$\\
+B & 0 & 1 & 46 & $46=240(0)+46(1)$\\
+C & 1 & -5 & 10 & $10=240(1)+46(-5)$\\
+D & -4 & 21 & 6 & $6=240(-4)+46(21)$\\
+E & 5 & -26 & 4 & $4=240(5)+46(-26)$\\
+F & -9 & 47 & 2 & $2=240(-9)+46(47)$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Step{3. Read the final non-zero row}
+The final non-zero remainder is $2$, so
+\[
+\gcd(240,46)=2.
+\]
+The same row gives
+\[
+2=240(-9)+46(47).
+\]
+Therefore,
+\[
+x=-9,\qquad y=47.
+\]
+
+\Exam{modular inverse of $18$ modulo $97$}
+
+\Step{1. Apply Euclid}
+\begin{align*}
+97&=18(5)+7,\\
+18&=7(2)+4,\\
+7&=4(1)+3,\\
+4&=3(1)+1,\\
+3&=1(3)+0.
+\end{align*}
+
+\Step{2. Full coefficient table}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{r r r r l}
+\toprule
+Row & x & y & r & Relation\\
+\midrule
+A & 1 & 0 & 97 & $97=97(1)+18(0)$\\
+B & 0 & 1 & 18 & $18=97(0)+18(1)$\\
+C & 1 & -5 & 7 & $7=97(1)+18(-5)$\\
+D & -2 & 11 & 4 & $4=97(-2)+18(11)$\\
+E & 3 & -16 & 3 & $3=97(3)+18(-16)$\\
+F & -5 & 27 & 1 & $1=97(-5)+18(27)$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Step{3. Convert the Bézout identity into an inverse}
+From the last row,
+\[
+1=97(-5)+18(27).
+\]
+Reduce modulo $97$:
+\[
+18(27)\equiv1\pmod{97}.
+\]
+Hence,
+\[
+\boxed{18^{-1}\equiv27\pmod{97}}.
+\]
+
+\subsection{Fundamental Theorem of Arithmetic}
+\Theorem Every integer $n>1$ can be expressed as a product of prime powers, and the representation is unique apart from the order of the factors:
+\[
+n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}.
+\]
+This is also called the Unique Factorization Theorem.
+
+\Example Factor $1001$ into primes.
+
+\Step
+\begin{enumerate}
+    \item Start with
+    \[
+    1001=7\times143.
+    \]
+    \item Factor $143$:
+    \[
+    143=11\times13.
+    \]
+    \item Therefore,
+    \[
+    1001=7\times11\times13.
+    \]
+    \item A different route,
+    \[
+    1001=11\times91=11\times7\times13,
+    \]
+    gives exactly the same prime factors.
+\end{enumerate}
+
+\paragraph{Why 1 is not prime}
+If $1$ were prime, prime factorizations would not be unique because arbitrary extra factors of $1$ could be inserted.
+
+\subsubsection{Euclid's Lemma}
+\Theorem If $p$ is prime and $p\mid ab$, then $p\mid a$ or $p\mid b$.
+
+The result follows from Bézout's identity and extends to products of several factors.
+
+\newpage
+\newpage
+% =========================================================
+\section{Unit 5 --- Modular Arithmetic and Chinese Remainder Theorem}
+% =========================================================
+
+\subsection{What is Modular Arithmetic?}
+\Definition
+\[
+a\equiv b\pmod n
+\]
+means that $a$ and $b$ have the same remainder when divided by $n$.
+
+\subsubsection{Field Idea}
+Informally, a field is a set in which addition, subtraction, multiplication and division are properly defined, except division by zero. The formal description included in this section says that $F$ is a commutative group under addition, $F\setminus\{0\}$ is a commutative group under multiplication, and distributivity holds.
+
+$\mathbb R$ and $\mathbb C$ are examples, while $\mathbb N$ and $\mathbb Z$ are non-examples. Rational numbers are included as a prompt in this section.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+Structure & Operations emphasized & Example(s) in this section\\
+\midrule
+Group & Addition/subtraction structure & 24-hour clock example\\
+Ring & Addition, subtraction, multiplication & $\mathbb Z$; modulo $n$ for composite $n$\\
+Field & Addition, subtraction, multiplication, division except by 0 & $\mathbb Q,\mathbb R,\mathbb C$; modulo $p$ for prime $p$\\
+Vector space & Vector addition/subtraction and scalar multiplication & Real, complex and binary vector spaces\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Arithmetic under Congruence}
+If
+\[
+a\equiv c\pmod n,\qquad b\equiv d\pmod n,
+\]
+then
+\[
+a+b\equiv c+d\pmod n,
+\]
+\[
+a-b\equiv c-d\pmod n,
+\]
+\[
+ab\equiv cd\pmod n.
+\]
+
+\subsection{Diophantine Equations}
+\Definition A Diophantine equation is an equation for which integer solutions are required. The unit focuses on linear two-variable equations
+\[
+ax+by=c.
+\]
+
+\Example The example gives a cash-payment interpretation using 20-dollar and 50-dollar notes for a 230-dollar payment.
+
+\Theorem The equation
+\[
+ax+by=c
+\]
+has an integer solution if and only if
+\[
+\gcd(a,b)\mid c.
+\]
+
+\Step{How to solve when a solution exists}
+\begin{enumerate}
+    \item Compute $d=\gcd(a,b)$ using extended Euclid.
+    \item Find $x_0,y_0$ such that $ax_0+by_0=d$.
+    \item Multiply the Bézout identity by $c/d$.
+    \item The resulting pair is one particular integer solution.
+\end{enumerate}
+
+\Example For
+\[
+391x+299y=-69,
+\]
+the example gives
+\[
+391(-3)+299(4)=23.
+\]
+Multiplying by $-3$ yields
+\[
+391(9)+299(-12)=-69.
+\]
+Thus one solution is
+\[
+(x,y)=(9,-12).
+\]
+This section also gives another solution, $(x,y)=(-4,5)$.
+
+\subsection{Modular Division}
+\subsubsection{Why division is different}
+In modular arithmetic, dividing by $a$ means multiplying by the multiplicative inverse of $a$, when the inverse exists. This section illustrates that, modulo 7, every non-zero row of the multiplication table contains all residues, so equations $ax\equiv b\pmod7$ are solvable for non-zero $a$.
+
+\Definition $a^{-1}$ modulo $n$ is a number satisfying
+\[
+aa^{-1}\equiv1\pmod n.
+\]
+
+\Theorem The inverse $a^{-1}\pmod n$ exists if and only if
+\[
+\gcd(a,n)=1.
+\]
+
+\Step{Finding an inverse}
+\begin{enumerate}
+    \item Use extended Euclid to obtain
+    \[
+    ax+ny=1.
+    \]
+    \item Reduce the coefficient $x$ modulo $n$.
+    \item The resulting residue is $a^{-1}\pmod n$.
+\end{enumerate}
+
+\Example
+\[
+2^{-1}\equiv4\pmod7
+\]
+because $2\times4=8\equiv1\pmod7$. Therefore
+\[
+2x\equiv3\pmod7
+\]
+can be solved by multiplying both sides by 4:
+\[
+x\equiv12\equiv5\pmod7.
+\]
+
+\Example In modulo 6, $2^{-1}$ does not exist because $\gcd(2,6)=2\ne1$. Hence the congruence $2x\equiv5\pmod6$ has no solution.
+
+\subsubsection{Division Modulo a Prime}
+When the modulus is a prime $p$, every non-zero element has a multiplicative inverse. This section connects this with the fact that arithmetic modulo a prime forms a field.
+
+\subsection{Modular Exponentiation}
+Direct computation of a huge power can be impractical. This section presents square-and-multiply.
+
+\Step{Square-and-Multiply}
+\begin{enumerate}
+    \item Write the exponent in binary or as a sum of powers of 2.
+    \item Compute
+    \[
+    m,\ m^2,\ m^4,\ m^8,\ldots
+    \]
+    reducing modulo $n$ after every squaring.
+    \item Multiply only the powers corresponding to the 1-bits in the exponent.
+    \item Reduce modulo $n$ again.
+\end{enumerate}
+
+\Example Compute
+\[
+17^{29}\pmod{35}.
+\]
+This section values are
+\[
+17^2\equiv9,
+\quad17^4\equiv11,
+\quad17^8\equiv16,
+\quad17^{16}\equiv11\pmod{35}.
+\]
+Since
+\[
+29=16+8+4+1,
+\]
+combine the corresponding powers modulo 35 to obtain
+\[
+17^{29}\equiv12\pmod{35}.
+\]
+
+\subsubsection{Fermat's Little Theorem}
+\Theorem If $p$ is prime and $p\nmid a$, then
+\[
+a^{p-1}\equiv1\pmod p.
+\]
+
+\Example
+\[
+2^{35}\pmod7.
+\]
+Because $2^6\equiv1\pmod7$, the exponent can be reduced modulo 6, giving
+\[
+2^{35}\equiv2^5\equiv4\pmod7.
+\]
+
+\Example This section also reduces $40^{110}\pmod{37}$ by first noting $40\equiv3\pmod{37}$ and then using $3^{36}\equiv1\pmod{37}$, giving
+\[
+40^{110}\equiv3^{110}\equiv3^2\equiv9\pmod{37}.
+\]
+
+\Example Solve
+\[
+x^{103}\equiv4\pmod{11}.
+\]
+Since $x^{10}\equiv1\pmod{11}$ for non-zero $x$, reduce the exponent to 3:
+\[
+x^{103}\equiv x^3\equiv4\pmod{11}.
+\]
+This section then tests residues to obtain $x\equiv5\pmod{11}$.
+
+\subsubsection{Euler's Theorem}
+\Theorem If $\gcd(a,n)=1$, then
+\[
+a^{\varphi(n)}\equiv1\pmod n.
+\]
+Unlike Fermat's theorem, the modulus need not be prime.
+
+\subsection{Chinese Remainder Theorem}
+\subsubsection{Motivating Examples}
+This section starts with congruences such as
+\[
+x\equiv1\pmod2,
+\qquad x\equiv3\pmod5,
+\]
+which combine to
+\[
+x\equiv3\pmod{10}.
+\]
+It also contrasts a co-prime case with congruences such as modulo 2 and modulo 4.
+
+\Theorem Let $m$ and $n$ be co-prime. Then a pair
+\[
+x\equiv a\pmod m,
+\qquad x\equiv b\pmod n
+\]
+has a unique solution modulo $mn$.
+
+\Step{CRT construction}
+Suppose extended Euclid gives
+\[
+m\alpha+n\beta=1.
+\]
+Then the example gives the solution in the form
+\[
+c\equiv a\,n\beta+b\,m\alpha\pmod{mn}.
+\]
+
+\Example Solve
+\[
+x\equiv3\pmod{19},\qquad x\equiv8\pmod{11}.
+\]
+The given Euclidean coefficients are
+\[
+19(-4)+11(7)=1.
+\]
+Hence
+\[
+x\equiv3(11)(7)+8(19)(-4)\pmod{209},
+\]
+so this section result is
+\[
+x\equiv41\pmod{209}.
+\]
+
+\subsubsection{Sunzi's 3-5-7 Problem}
+It follows that
+\[
+x\equiv2\pmod3,\qquad x\equiv3\pmod5,\qquad x\equiv2\pmod7.
+\]
+The combined solution is represented modulo $105$.
+
+\Step
+First combine the first two equations using
+\[
+3(2)+5(-1)=1.
+\]
+Then combine the result with the modulo-7 equation using the given Bézout relation
+\[
+15(1)+7(-2)=1.
+\]
+A compact expression is
+\[
+x\equiv70a_1+21a_2+15a_3\pmod{105},
+\]
+where the three residues are the given values.
+
+\subsubsection{Why CRT Matters Later}
+The key point is CRT as useful in RSA correctness and in combining modular conditions efficiently.
+
+\subsection{SageMath}
+SageMath is free mathematical software built on Python. SageMathCell provides a browser-based way to use it.
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Command & Purpose stated in this section\\
+\midrule
+\verb|factor(x)| & Factor an integer\\
+\verb|nth_prime(n)| & Find the $n$-th prime\\
+\verb|gcd(a,b)| & Compute a gcd\\
+\verb|xgcd(a,b)| & Extended gcd\\
+\verb|euler_phi(x)| & Compute Euler's totient\\
+\verb|mod(a,n)| & Create/use a modular arithmetic object\\
+\verb|inverse_mod(x,y)| & Compute a modular inverse\\
+\verb|power_mod(x,y,z)| & Compute modular powers\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+% =========================================================
+\section{Unit 6 --- Public Key Cryptography}
+% =========================================================
+
+\subsection{Cybersecurity Ethics}
+\Definition Ethics comes from the Greek word \textit{ethos}, originally meaning custom or habit. It is the branch of philosophy concerned with human conduct and with questions of right/wrong and just/unjust behavior.
+
+\subsubsection{Codes of Ethics}
+In professional life, ethics is often stated in formal codes or standards. They describe values and principles to which members of a profession aspire and by which their actions may be judged.
+
+\subsubsection{(ISC)$^2$ Code of Ethics}
+Consider the four canons used by (ISC)$^2$ for CISSP certification holders:
+\begin{enumerate}
+    \item Protect society, the common good, necessary public trust and confidence, and the infrastructure.
+    \item Act honorably, honestly, justly, responsibly, and legally.
+    \item Provide diligent and competent service to principals.
+    \item Advance and protect the profession.
+\end{enumerate}
+The given slide arranges these from the highest standard (society) to the lowest (the profession).
+
+\subsubsection{Cybersecurity Example}
+Consider a professional securing a hospital network and critical data. Patient privacy, health and even survival can depend on the success or failure of the security work.
+
+\subsubsection{Types of Hackers}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Black hat & Criminals who break into computer networks with malicious intent.\\
+White hat & Ethical hackers / penetration testers who have permission to identify security flaws.\\
+Grey hat & Not necessarily malicious, but accesses systems without permission and may violate laws or ethical standards; may report vulnerabilities and sometimes request a fee.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Public Key Cryptography}
+\subsubsection{Two Problems Motivating Public-Key Cryptography}
+\begin{enumerate}
+    \item How can Alice and Bob share a secret key for symmetric cryptography?
+    \item How can Bob be prevented from denying that he sent a certain message?
+\end{enumerate}
+
+\subsubsection{Two Main Motivations}
+\begin{enumerate}
+    \item \textbf{Key distribution at scale}: anyone can encrypt to a public key without a prior shared secret.
+    \item \textbf{Authentication and non-repudiation}: digital signatures let a party prove data origin and integrity.
+\end{enumerate}
+
+\subsubsection{Public-Key Requirements}
+Consider a public-key mechanism in which:
+\begin{itemize}
+    \item encryption is easy,
+    \item decryption by an unauthorized party is hard,
+    \item the legitimate receiver can decrypt using a private key.
+\end{itemize}
+
+\subsubsection{Trapdoor One-Way Functions}
+\Definition Consider a function that is easy to compute in the forward direction but computationally hard to invert without special trapdoor information. With the trapdoor, inversion becomes easy.
+
+\subsubsection{Three Families Mentioned}
+\begin{itemize}
+    \item Integer factorization: RSA.
+    \item Discrete logarithm: Diffie-Hellman and El Gamal.
+    \item Elliptic-curve schemes based on the elliptic-curve discrete logarithm problem.
+\end{itemize}
+
+\subsubsection{Why Public-Key Systems Are Usually Used to Set Up a Session Key}
+This section emphasizes that public-key operations are more expensive, so public-key systems are commonly used initially to establish a common private/session key, after which symmetric cryptography handles the main data stream.
+
+\subsubsection{HTTPS and SSL/TLS Workflow}
+A simplified workflow is:
+\begin{enumerate}
+    \item The client requests an HTTPS connection.
+    \item The server supplies a certificate containing its public key.
+    \item The client creates a session key $k_S$.
+    \item The client encrypts $k_S$ using the server public key.
+    \item The server decrypts it using its private key.
+    \item Both sides now share $k_S$ for symmetric encryption.
+\end{enumerate}
+The material describes HTTPS as HTTP plus SSL/TLS. The given history table lists SSL 1.0 as never publicly released because of a serious flaw; SSL 2.0 (1995), SSL 3.0 (1996), TLS 1.0 (1999), TLS 1.1 (2006), TLS 1.2 (2008), and TLS 1.3 as ``Upcoming'' in the material.
+
+\subsubsection{Digital Signatures}
+A simplified signature scheme in this section has Bob use his private key to create a signature associated with message $m$. Alice uses Bob's public key to verify it.
+
+\Step{Verification logic}
+\begin{enumerate}
+    \item Bob creates the signature using his private key.
+    \item Bob sends the message together with the signature.
+    \item Alice uses Bob's public key to verify.
+    \item A valid result supports origin authentication and non-repudiation.
+\end{enumerate}
+
+\subsubsection{Hash-Then-Sign}
+Signing a long message directly can be computationally expensive. This section's solution is to hash the message and sign the fixed-length hash:
+\[
+\text{signature}=f(H(m),k_A^-).
+\]
+The receiver computes $H(m)$ independently and compares it with the recovered signed hash.
+
+\subsection{RSA Cryptosystems}
+\subsubsection{Background}
+RSA was developed by Rivest, Shamir and Adleman  and dates its invention to 1977. Its security discussion is based on the difficulty of factoring large integers. The material also shows an RSA challenge involving a 617-digit, 2048-bit integer as an illustration of the scale of the numbers involved.
+
+\subsubsection{Preparing the Message}
+This section represents a bit string by an integer. For example,
+\[
+10010001_2=145.
+\]
+
+\subsubsection{RSA Key Generation}
+\Step
+\begin{enumerate}
+    \item Choose distinct large random primes $p$ and $q$.
+    \item Compute
+    \[
+    N=pq.
+    \]
+    \item Compute
+    \[
+    \varphi(N)=(p-1)(q-1).
+    \]
+    \item Choose $e$ such that
+    \[
+    1<e<\varphi(N),\qquad\gcd(e,\varphi(N))=1.
+    \]
+    \item Find $d$ such that
+    \[
+    ed\equiv1\pmod{\varphi(N)}.
+    \]
+    \item Publish
+    \[
+    K_B^+=(N,e),
+    \]
+    and keep
+    \[
+    K_B^-=(N,d).
+    \]
+\end{enumerate}
+
+\subsubsection{RSA Encryption and Decryption}
+\[
+c\equiv m^e\pmod N,
+\]
+then
+\[
+m'\equiv c^d\pmod N.
+\]
+This section assumes $m<N$, with longer messages broken into blocks when required.
+
+\Example{Toy RSA example from this section}
+Take
+\[
+p=5,\quad q=7,
+\]
+so
+\[
+N=35,\qquad\varphi(N)=24.
+\]
+Choose
+\[
+e=5,
+\]
+and the given private exponent is
+\[
+d=5
+\]
+because $5\times5=25\equiv1\pmod{24}$.
+
+For message $m=12$:
+\[
+c\equiv12^5\equiv17\pmod{35}.
+\]
+Decrypting gives
+\[
+17^5\equiv12\pmod{35}.
+\]
+It is important to the use of fast modular exponentiation for real-sized computations.
+
+\subsubsection{Why RSA Works}
+The goal is
+\[
+(m^e)^d=m^{ed}\equiv m\pmod N.
+\]
+We can prove this directly: this separately modulo $p$ and modulo $q$, then uses the Chinese remainder theorem to conclude the congruence modulo $N=pq$.
+
+\subsubsection{Why Factoring Matters for RSA Security}
+Given $N$ and $\varphi(N)$, one can recover the factors because
+\[
+\varphi(N)=(p-1)(q-1)=pq-p-q+1.
+\]
+Since $pq=N$, knowing $N$ and $\varphi(N)$ gives enough information to solve for $p$ and $q$. The security idea in this section is therefore tied to the difficulty of factoring $N$.
+
+\subsection{Diffie-Hellman Key Exchange}
+\subsubsection{Discrete Logarithm}
+For ordinary exponentiation $y=a^x$, $x$ is the discrete logarithm in the modular version
+\[
+y\equiv a^x\pmod p.
+\]
+Security relies on the computational difficulty of solving for $x$.
+
+\subsubsection{GF($p$), Order and Primitive Elements}
+Use
+\[
+GF(p)=\{0,1,\ldots,p-1\}
+\]
+with modular arithmetic.
+
+\Definition The order $\operatorname{ord}_p(\alpha)$ is the smallest positive $k$ such that
+\[
+\alpha^k\equiv1\pmod p.
+\]
+The order divides $p-1$.
+
+\Definition A primitive element has order $p-1$ and generates all non-zero elements of $GF(p)$.
+
+\Example In $GF(7)$,
+\[
+2^1=2,\quad2^2=4,\quad2^3=8\equiv1\pmod7,
+\]
+so
+\[
+\operatorname{ord}_7(2)=3.
+\]
+
+\subsubsection{Diffie-Hellman Protocol}
+\Step
+\begin{enumerate}
+    \item Publicly agree on a prime $p$ and primitive element $\alpha$.
+    \item Alice chooses random $a$ and sends
+    \[
+    y_A=\alpha^a\pmod p.
+    \]
+    \item Bob chooses random $b$ and sends
+    \[
+    y_B=\alpha^b\pmod p.
+    \]
+    \item Alice computes
+    \[
+    y_B^a\equiv\alpha^{ab}\pmod p.
+    \]
+    \item Bob computes
+    \[
+    y_A^b\equiv\alpha^{ab}\pmod p.
+    \]
+\end{enumerate}
+Thus both obtain the common key
+\[
+k=\alpha^{ab}\pmod p.
+\]
+
+\subsubsection{Why a Passive Eve Has Difficulty}
+Eve can see $p$, $\alpha$, $y_A$ and $y_B$, but this section argues that recovering $a$ or $b$ requires solving a discrete logarithm. Choosing a primitive element gives the largest possible non-zero secret space.
+
+\subsubsection{Man-in-the-Middle Attack}
+This section also shows that Diffie-Hellman by itself does not authenticate the parties. An active attacker can establish one key with Alice and another with Bob, decrypt traffic on one side and re-encrypt it on the other. This is the given MITM attack.
+
+\Exam{}
+The given solution computes by square-and-multiply for
+\[
+5^{64}\pmod{157},
+\]
+obtaining
+\[
+y_A=147.
+\]
+Using Bob's exponent $94$, the shared key is calculated as
+\[
+147^{94}\pmod{157}=89.
+\]
+The important exam procedure is repeated squaring plus selecting the powers corresponding to the 1-bits of the exponent.
+
+\subsection{El Gamal Cryptosystems}
+\subsubsection{Key Generation}
+Consider El Gamal as based on Diffie-Hellman and attributes it to Taher Elgamal.
+
+Public parameters:
+\[
+p=\text{prime},\qquad \alpha=\text{primitive element of }GF(p).
+\]
+Alice chooses private value $d$ and computes
+\[
+e=\alpha^d\pmod p.
+\]
+Then
+\[
+K_A^-=(p,\alpha,d),
+\qquad
+K_A^+=(p,\alpha,e).
+\]
+
+\subsubsection{Encryption}
+\Step
+\begin{enumerate}
+    \item Represent the message as an integer $0\le m<p$.
+    \item Choose a fresh random $k$ for each block.
+    \item Compute the one-time key
+    \[
+    K=e^k\pmod p.
+    \]
+    \item Compute
+    \[
+    c_1=\alpha^k\pmod p,
+    \qquad
+    c_2=Km\pmod p.
+    \]
+    \item The ciphertext is $(c_1,c_2)$.
+\end{enumerate}
+
+\subsubsection{Decryption}
+\Step
+\begin{enumerate}
+    \item Compute
+    \[
+    K=c_1^d\pmod p.
+    \]
+    \item Compute
+    \[
+    m=c_2K^{-1}\pmod p.
+    \]
+\end{enumerate}
+
+\Example Use $GF(19)$, $\alpha=10$, Alice's private value $d=5$, giving $e=3$. For message $m=17$ and random $k=6$:
+\[
+K=3^6\equiv7\pmod{19},
+\]
+\[
+c_1=10^6\equiv11\pmod{19},
+\]
+\[
+c_2=7\times17\equiv5\pmod{19}.
+\]
+During decryption,
+\[
+11^5\equiv7\pmod{19},
+\]
+and the given inverse is
+\[
+7^{-1}\equiv11\pmod{19}.
+\]
+Hence
+\[
+5\times11\equiv17\pmod{19}.
+\]
+
+\paragraph{Why decryption recovers the same key}
+Because
+\[
+e=\alpha^d,
+\]
+we have
+\[
+e^k=\alpha^{dk}=(\alpha^k)^d=c_1^d.
+\]
+So the receiver reconstructs the same $K$ used by the sender.
+
+\paragraph{Security statement in this section}
+Eve sees $e=\alpha^d$ and $c_1=\alpha^k$; this section explains that recovering the hidden exponents involves the discrete logarithm problem.
+
+\newpage
+% =========================================================
+\section{Unit 7 --- Digital Certificate}
+% =========================================================
+
+\subsection{Motivation: Identity Verification Problem}
+Begin with the pizza-store prank. Trudy creates a message pretending to be Bob, signs it with her own private key, and then sends her public key while claiming that it is Bob's public key. The store verifies the signature and delivers the pizza to Bob.
+
+\KeyPoint The underlying problem is not simply whether a signature verifies. The receiver must also know whose public key is being used.
+
+\subsection{Public-Key Authority}
+\Step
+\begin{enumerate}
+    \item Bob registers his public key $k_B^+$ with an authority.
+    \item The authority's public key $k_{AA}^+$ is known to everyone.
+    \item The Pizza Store requests Bob's public key.
+    \item The authority returns a message protected using the authority's private key $k_{AA}^-$.
+    \item The store uses $k_{AA}^+$ and obtains Bob's public key.
+\end{enumerate}
+
+\paragraph{Major drawback}
+Real-time communication with the authority is required whenever the public key is requested.
+
+\subsection{Digital Certificates}
+\Definition A digital certificate is an electronic credential issued by an authority to prove ownership/binding of a public key.
+
+The authority is called a \textbf{Certificate Authority (CA)} or Certification Authority. The CA's public key is known to users, for example through storage in browsers or caches.
+
+\subsection{Issuing a Digital Certificate}
+\Step
+\begin{enumerate}
+    \item Bob registers his public key with the CA.
+    \item Bob provides proof of identity.
+    \item The CA creates a certificate binding Bob's identifying information to Bob's public key.
+    \item The CA digitally signs the certificate.
+\end{enumerate}
+
+The important statement from this section is that the CA is effectively saying, ``this is Bob's public key.''
+
+\subsection{Using a Digital Certificate}
+\Step
+\begin{enumerate}
+    \item The Pizza Store obtains Bob's certificate.
+    \item It applies the CA's public key to the CA signature.
+    \item It obtains Bob's public key from the certificate.
+    \item No real-time CA communication is needed.
+\end{enumerate}
+
+\subsection{X.509}
+\Definition X.509 is an ITU standard specifying the structure of public-key certificates. It follows that X.509 certificates are used in protocols such as TLS/SSL for HTTPS, email encryption and VPN authentication.
+
+\subsubsection{X.509 Certificate Structure}
+The given material lists fields such as:
+\begin{itemize}
+    \item Version, typically version 3 in the shown example.
+    \item Serial number.
+    \item Signature algorithm identifier.
+    \item Issuer: the CA.
+    \item Validity period.
+    \item Subject: domain/organization identity information.
+    \item Subject Public Key Info.
+    \item Extensions, including examples such as key usage and subject alternative names.
+\end{itemize}
+
+\subsection{Self-Signed Certificate}
+\Definition A self-signed certificate is signed by the same entity that it certifies. This section presents this as useful for internal testing, development and private networks.
+
+\subsection{OpenSSL Practical Activity}
+The given TBL material gives the following commands.
+
+\begin{lstlisting}
+openssl genrsa -out weakkey.pem 512
+openssl req -new -key weakkey.pem -out weak.csr
+openssl x509 -req -days 365 -in weak.csr -signkey weakkey.pem -out weakcert.pem
+\end{lstlisting}
+
+To inspect the certificate:
+\begin{lstlisting}
+openssl x509 -in weakcert.pem -text -noout
+\end{lstlisting}
+
+To inspect the private key:
+\begin{lstlisting}
+openssl pkey -in weakkey.pem -text -noout
+\end{lstlisting}
+
+The example output shown in the given material contains fields such as version 3, SHA-256 with RSA, subject/issuer, RSA public-key algorithm, a 512-bit public key, hexadecimal modulus, exponent 65537, X.509v3 Subject Key Identifier, and a signature value. The private-key display contains additional values such as $n,e,d,p,q$ and related exponents/coefficient information.
+
+\subsection{TBL Preparation}
+The given activity asks students to review how digital certificates work and why they are needed, then use an online cryptography tool to create and inspect a self-signed certificate and private key.
+
+\newpage
+% =========================================================
+\section{Unit 8 --- Linear Algebra for Cryptography}
+% =========================================================
+
+\subsection{Opening Idea: Four-Digit Combination Lock}
+Begin with with a lock whose combination can be opened by any two children together, while one child alone gets no information and must in effect face the full search space of 10,000 four-digit combinations. This motivates secret sharing.
+
+\subsection{Linear Mappings}
+\subsubsection{Vectors}
+This section presents a vector as the basic building block of linear algebra. A vector can be pictured as an arrow with length and direction, or as an ordered list of $n$ numbers.
+
+\Definition Mathematically, a vector is an element of a vector space. The two basic operations emphasized in this section are vector addition and scalar multiplication.
+
+\Definition
+\[
+\mathbb R^n=\{(x_1,\ldots,x_n):x_i\in\mathbb R\}.
+\]
+Note that the underlying field need not always be the real numbers; it can also be the complex numbers or a finite field such as arithmetic modulo a prime.
+
+\subsubsection{Vector-Valued Mappings}
+Consider
+\[
+f:\mathbb R^n\rightarrow\mathbb R^m,
+\qquad y=f(x),
+\]
+where both input and output may be vectors. When $m=1$, the function is scalar-valued.
+
+\subsubsection{Linearity}
+\Definition A function $f$ is linear if it satisfies:
+\begin{enumerate}
+    \item Additivity:
+    \[
+f(x+y)=f(x)+f(y).
+    \]
+    \item Scaling:
+    \[
+f(cx)=cf(x).
+    \]
+\end{enumerate}
+These combine into the superposition condition
+\[
+f(\alpha x+\beta y)=\alpha f(x)+\beta f(y).
+\]
+
+\Example{Exchange-rate illustration}
+The example gives 100 yen = HK\$7.00, with one plate of soba costing 800 yen and sushi 200 yen. For two plates of soba and four plates of sushi,
+\[
+2(800)+4(200)=2400\text{ yen}=24(7)=\text{HK\$168}.
+\]
+The linear scaling of the total cost is the intended illustration.
+
+\subsubsection{Zero-in, Zero-out}
+A linear map must satisfy
+\[
+f(0)=0.
+\]
+Use this as an important quick test and asks whether zero-in-zero-out is by itself sufficient for linearity.
+
+\subsubsection{Examples and Non-Examples}
+Consider functions such as averages, coordinate differences and electrical relations such as Ohm's law as linear examples, while functions such as minimum and the Euclidean norm are used to illustrate non-linearity.
+
+\subsubsection{Inner Product}
+For vectors $u$ and $v$, the inner product is written
+\[
+u^Tv=\sum_i u_iv_i.
+\]
+Note that symmetry,
+\[
+a^Tb=b^Ta,
+\]
+and positive definiteness,
+\[
+a^Ta\ge0,
+\]
+with equality only for the zero vector.
+
+\subsubsection{A Linear Function from an Inner Product}
+Consider
+\[
+f(v)=u^Tv
+\]
+and verifies superposition directly.
+
+The Euclidean norm is used as a non-linear example because the corresponding superposition relationship fails.
+
+\subsection{Matrix Representation of Linearity}
+\subsubsection{Matrix-Vector Multiplication}
+Let $A$ be an $m\times n$ matrix and $x$ an $n$-vector. Then $Ax$ is an $m$-vector.
+
+\Example The given matrix is
+\[
+A=\begin{pmatrix}1&2&3\\3&2&1\end{pmatrix},\qquad
+x=\begin{pmatrix}2\\-1\\1\end{pmatrix}.
+\]
+Row-wise computation gives
+\[
+Ax=\begin{pmatrix}1(2)+2(-1)+3(1)\\3(2)+2(-1)+1(1)\end{pmatrix}
+=\begin{pmatrix}3\\5\end{pmatrix}.
+\]
+This section also gives the column interpretation: $Ax$ is a linear combination of the columns of $A$.
+
+\subsubsection{Every Matrix Defines a Linear Map}
+For
+\[
+f(x)=Ax,
+\]
+linearity follows from matrix multiplication:
+\[
+A(\alpha x+\beta y)=\alpha Ax+\beta Ay.
+\]
+
+\subsubsection{Geometric Transformations}
+The example gives the following matrix examples:
+\begin{itemize}
+    \item Stretch: $cI$.
+    \item Rotation by 90 degrees:
+    \[
+    \begin{pmatrix}0&-1\\1&0\end{pmatrix}.
+    \]
+    \item Reflection about the 45-degree line:
+    \[
+    \begin{pmatrix}0&1\\1&0\end{pmatrix}.
+    \]
+    \item Projection onto the $x$-axis:
+    \[
+    \begin{pmatrix}1&0\\0&0\end{pmatrix}.
+    \]
+\end{itemize}
+
+\subsubsection{Converse Theorem}
+It follows that every linear map from $\mathbb R^n$ to $\mathbb R^m$ can be represented as multiplication by an appropriate matrix. The proof idea uses standard basis vectors and superposition.
+
+\subsubsection{Affine Functions}
+An affine function has the form
+\[
+g(x)=Ax+c.
+\]
+This section emphasizes that, strictly speaking, a non-zero constant shift means the map is not linear because zero-in-zero-out fails, although the term ``linear'' is sometimes used informally.
+
+\subsubsection{Composition of Linear Maps}
+If
+\[
+f(x)=Ax,\qquad g(y)=By,
+\]
+then
+\[
+(g\circ f)(x)=BAx,
+\]
+so the composition is again linear.
+
+\subsection{Determinants and Matrix Inverses}
+\subsubsection{Determinant of a $2\times2$ Matrix}
+\Definition For
+\[
+A=\begin{pmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{pmatrix},
+\]
+\[
+\det A=a_{11}a_{22}-a_{12}a_{21}.
+\]
+
+\subsubsection{Minor and Cofactor}
+\Definition The minor $M_{ij}$ is the determinant obtained by deleting row $i$ and column $j$.
+
+\Definition The cofactor is
+\[
+C_{ij}=(-1)^{i+j}M_{ij}.
+\]
+
+\Example For the given matrix
+\[
+A=\begin{pmatrix}
+3&-1&6\\
+9&-5&2\\
+0&4&7
+\end{pmatrix},
+\]
+the example gives $M_{23}=12$, hence
+\[
+C_{23}=-12.
+\]
+
+\subsubsection{Cofactor Expansion}
+For a square matrix, expand along any row:
+\[
+\det A=a_{i1}C_{i1}+a_{i2}C_{i2}+\cdots+a_{in}C_{in}.
+\]
+For the given $3\times3$ matrix, the example gives determinant $150$ and the first-row cofactors
+\[
+C_{11}=-43,\qquad C_{12}=-63,\qquad C_{13}=36.
+\]
+
+\subsubsection{Cramer's Rule}
+For $n$ linear equations in $n$ unknowns, if
+\[
+\det A\ne0,
+\]
+then Cramer's rule gives each variable by replacing one column of $A$ and dividing the resulting determinant by $\det A$.
+
+\subsubsection{Matrix Inverse by Cofactors}
+\Step
+\begin{enumerate}
+    \item Compute all minors.
+    \item Convert minors to cofactors.
+    \item Transpose the cofactor matrix to obtain the adjugate/adjoint matrix.
+    \item Divide by $\det A$.
+\end{enumerate}
+Thus
+\[
+A^{-1}=\frac{1}{\det A}\operatorname{adj}(A).
+\]
+
+For the given $3\times3$ matrix, the example gives
+\[
+\operatorname{adj}(A)=
+\begin{pmatrix}
+-43&31&28\\
+-63&21&48\\
+36&-12&-6
+\end{pmatrix}
+\]
+and $\det A=150$.
+
+Note that larger matrices are better handled by Gaussian elimination or software such as MATLAB or SageMath.
+
+\subsection{Symmetric Ciphers}
+\subsubsection{Affine Cipher}
+\Definition The given affine cipher is
+\[
+c\equiv \alpha m+\beta\pmod b.
+\]
+For decryption,
+\[
+m\equiv\alpha^{-1}(c-\beta)\pmod b,
+\]
+provided $\gcd(\alpha,b)=1$. When $\beta=0$, the cipher is linear.
+
+\subsubsection{Hill Cipher}
+Consider the Hill cipher as a polygraphic substitution cipher due to Lester Hill. Letters are grouped into blocks and represented as vectors. An invertible secret matrix $E$ is used:
+\[
+c=Em
+\]
+under the appropriate modular arithmetic, with decryption using
+\[
+m=E^{-1}c.
+\]
+
+\subsubsection{Invertibility Modulo 26}
+It follows that the determinant must have a modular inverse. In particular, the determinant should be co-prime with the modulus.
+
+\Example The given key is
+\[
+E=
+\begin{pmatrix}
+6&24&1\\
+13&16&10\\
+20&17&15
+\end{pmatrix}.
+\]
+The example gives
+\[
+\det E=441\equiv25\pmod{26},
+\]
+and since 25 is co-prime to 26, the matrix is invertible modulo 26.
+
+For plaintext \texttt{ACT}, represented by
+\[
+m=(0,2,19)^T,
+\]
+the given material gives ciphertext
+\[
+c=(15,14,7)^T.
+\]
+The given inverse matrix is
+\[
+E^{-1}\equiv
+\begin{pmatrix}
+8&5&10\\
+21&8&21\\
+21&12&8
+\end{pmatrix}\pmod{26}.
+\]
+Applying it to $(15,14,7)^T$ recovers $(0,2,19)^T$.
+
+\subsubsection{Known-Plaintext Vulnerability}
+Note that a $3\times3$ Hill cipher has nine matrix entries. With enough known plaintext/ciphertext pairs, an attacker can form enough equations to solve for the matrix. This section nevertheless notes that linear/affine ideas can still be useful when combined with non-linear operations.
+
+\subsubsection{Caesar with an Increasing Shift}
+A normal Caesar shift by 3 sends \texttt{HELLO} to \texttt{KHOOR}. This section then gives an increasing-shift version in which the shift changes from one character to the next, producing a different ciphertext for repeated letters. This demonstrates a construction that is neither a single linear nor a single affine map over the whole message.
+
+\subsubsection{Optional Enigma Material}
+The given Unit 8 material includes an optional Enigma discussion: Arthur Scherbius, commercial introduction in the 1920s, later use by Nazi Germany in World War II, and Alan Turing's codebreaking work. The material also points to a video resource.
+
+\subsection{Secret Sharing}
+\subsubsection{Two-Point Idea}
+Use the fact that two points determine a line.
+
+For the four-digit secret 6965, it chooses a prime $p=10007$ and a random intercept, giving the line
+\[
+y\equiv6965x+30\pmod{10007}.
+\]
+The given shares are
+\[
+(1,6995),\quad(2,3953),\quad(3,911),\quad(4,7876).
+\]
+Any two shares determine the line and therefore recover the secret intercept 6965.
+
+\Step{Recovering the secret from Alice and Claire}
+Using points $(1,6995)$ and $(3,911)$, the slope is computed modulo 10007. Use the inverse
+\[
+2^{-1}\equiv5004\pmod{10007}
+\]
+and recovers slope $6965$, which opens the lock.
+
+\subsubsection{$(t,n)$ Threshold Secret Sharing}
+\Definition In a $(t,n)$ scheme, any $t$ out of $n$ participants can reconstruct the secret.
+
+The previous line example is a $(2,4)$ scheme. This section then generalizes to schemes such as $(3,4)$.
+
+\subsubsection{Polynomial Secret Sharing}
+For threshold $t$, choose a prime $p$ and a random polynomial
+\[
+f(x)=s+a_1x+a_2x^2+\cdots+a_{t-1}x^{t-1}
+\pmod p.
+\]
+Here $s$ is the secret, all arithmetic is modulo $p$, and participant $i$ receives
+\[
+(i,f(i)).
+\]
+Any $t$ points determine the polynomial and hence $s=f(0)$.
+
+\subsubsection{Recovery as a Linear Algebra Problem}
+Given $t$ shares, there are $t$ linear equations in $t$ unknown coefficients. The coefficient matrix is a Vandermonde matrix; this section states that it is invertible and that Gaussian elimination or Cramer's rule can then be used.
+
+\Example The given $(3,n)$ example uses $p=101$ and shares
+\[
+(1,5),(2,9),(3,15).
+\]
+The Vandermonde system is
+\[
+\begin{pmatrix}
+1&1&1\\
+1&2&4\\
+1&3&9
+\end{pmatrix}
+\begin{pmatrix}
+s\\a_1\\a_2
+\end{pmatrix}
+=
+\begin{pmatrix}5\\9\\15\end{pmatrix}
+\pmod{101}.
+\]
+This section's Cramer-rule calculation gives
+\[
+s\equiv89\times2^{-1}\pmod{101}.
+\]
+Since
+\[
+2^{-1}\equiv51\pmod{101},
+\]
+the secret is
+\[
+s\equiv95\pmod{101}.
+\]
+
+\newpage
+% =========================================================
+\section{Unit 9 --- Error-Correcting Codes}
+% =========================================================
+
+\subsection{Introduction}
+\subsubsection{$(n,k)$ Binary Codes}
+A binary $(n,k)$ code has:
+\begin{itemize}
+    \item $k$ information bits,
+    \item $r$ redundant/parity bits,
+    \item $n=k+r$ total coded bits.
+\end{itemize}
+The code $C$ consists of $2^k$ codewords in $\mathbb B^n$.
+
+\Definition An encoding is systematic when the information bits occur directly in the coded output.
+
+\subsubsection{Single Parity Check Revisited}
+Even parity adds one bit so that the total number of 1s is even. The receiver can detect a single-bit error but cannot determine which bit is wrong.
+
+\subsubsection{Code Rate}
+\[
+R_c=\frac{k}{n}.
+\]
+The effective information rate for a raw link of $W$ bits/s is $R_cW$.
+
+\subsubsection{Linear Codes}
+\Definition A code is linear when the encoding function
+\[
+c=f(u)
+\]
+is a linear function. The course considers linear codes because matrix multiplication can represent encoding and decoding efficiently.
+
+\subsubsection{Matrix-Matrix Multiplication}
+If $A$ is $m\times p$ and $B$ is $p\times n$, then $AB$ is $m\times n$. Each entry is the inner product of one row of $A$ and one column of $B$. This section emphasizes that, in general,
+\[
+AB\ne BA.
+\]
+
+\subsection{Error Detection Capability}
+\subsubsection{Why Single Parity Can Fail}
+For the $(4,3)$ even-parity code, a received word can itself be another valid even-parity codeword. When this happens, the decoder sees no parity violation, so the error is undetected.
+
+\Definition The Hamming distance $d(x,y)$ is the number of bit positions in which $x$ and $y$ differ.
+
+\Definition The Hamming weight $w(x)$ is the number of 1s in $x$.
+
+\Example
+\[
+x=(0,0,1,1,1),\quad w(x)=3,
+\]
+\[
+y=(0,1,1,0,1),\quad w(y)=3,
+\]
+and
+\[
+d(x,y)=2.
+\]
+
+\subsubsection{Hamming Distance is a Metric}
+This section lists:
+\begin{enumerate}
+    \item Non-negativity: $d(x,y)=0$ iff $x=y$.
+    \item Symmetry: $d(x,y)=d(y,x)$.
+    \item Triangle inequality: $d(x,y)\le d(x,z)+d(z,y)$.
+\end{enumerate}
+Any function satisfying these is a metric; Euclidean distance in $\mathbb R^n$ is given as another example of a metric.
+
+\subsubsection{Minimum Distance}
+\Definition
+\[
+d_{\min}
+\]
+is the smallest Hamming distance between any pair of distinct codewords.
+
+\Theorem A code is guaranteed to detect up to
+\[
+s=d_{\min}-1
+\]
+bit errors.
+
+\Step{Why}
+If fewer than $d_{\min}$ errors occur, the received word cannot become another codeword because distinct codewords are at least $d_{\min}$ apart.
+
+\Example This section compares:
+\begin{itemize}
+    \item $(4,3)$ even parity: the minimum distance is 2, hence it guarantees detection of at most 1 bit error.
+    \item $(5,1)$ repetition: $C=\{00000,11111\}$, so $d_{\min}=5$, hence it guarantees detection of up to 4 errors.
+\end{itemize}
+
+\subsection{Error Correction Capability}
+\Definition Nearest-neighbor decoding chooses a codeword in $C$ having minimum Hamming distance from the received vector $y$. A tie is broken arbitrarily.
+
+\Theorem The guaranteed error-correction capability is
+\[
+t=\left\lfloor\frac{d_{\min}-1}{2}\right\rfloor.
+\]
+
+\Example A $(6,1)$ repetition code has $d_{\min}=6$, so
+\[
+t=\left\lfloor\frac{5}{2}\right\rfloor=2.
+\]
+
+\subsubsection{(5,1) Repetition Code}
+For
+\[
+C=\{00000,11111\},
+\]
+we have
+\[
+d_{\min}=5,
+\qquad t=2,
+\qquad R_c=\frac15.
+\]
+At 1 Mbps, the effective information rate is 200 kbps.
+
+\subsubsection{Repetition with an Extra Parity Bit}
+Consider an example with
+\[
+u=(u_1,u_2)
+\]
+and
+\[
+c_1=c_3=u_1,
+\qquad
+c_2=c_4=u_2,
+\qquad
+c_5=u_1+u_2.
+\]
+The resulting code has four codewords, $d_{\min}=3$, correction capability $t=1$, and rate
+\[
+R_c=\frac25.
+\]
+At 1 Mbps, the useful information rate is 400 kbps. This section compares it with the $(5,1)$ repetition code: it is more communication-efficient but has weaker correction capability.
+
+\KeyPoint Higher $R_c$ means better communication efficiency; larger $d_{\min}$ means stronger detection/correction capability.
+
+\subsection{Generator Matrices for Encoding}
+\Definition A generator matrix $G$ for a linear $(n,k)$ code is a $k\times n$ binary matrix satisfying
+\[
+c=uG.
+\]
+For a systematic code,
+\[
+G=[I_k\mid P].
+\]
+
+\Example The given $(5,4)$ even-parity generator matrix is
+\[
+G=
+\begin{pmatrix}
+1&0&0&0&1\\
+0&1&0&0&1\\
+0&0&1&0&1\\
+0&0&0&1&1
+\end{pmatrix}.
+\]
+Hence
+\[
+c_1=u_1,\quad c_2=u_2,\quad c_3=u_3,\quad c_4=u_4,
+\]
+and
+\[
+c_5=u_1+u_2+u_3+u_4.
+\]
+
+\subsubsection{Injectivity of Encoding}
+This section explains that a linear encoder must be injective so that two different information vectors do not produce the same codeword.
+
+\Example The example gives a non-example where two different information vectors map to the same codeword. Such a matrix cannot be used for unambiguous decoding.
+
+\subsubsection{Linear Codes as Vector Subspaces}
+This section optionally views a binary linear code as a vector subspace: it is closed under vector addition (XOR) and scalar multiplication by 0 and 1.
+
+\subsubsection{Minimum Distance of a Linear Code}
+\Theorem For a linear code,
+\[
+d_{\min}=\text{minimum weight of a non-zero codeword}.
+\]
+The proof in this section uses linearity and the relation between Hamming distance and binary vector addition.
+
+\subsection{Parity-Check Matrices for Decoding}
+\subsubsection{Parity-Check Equation}
+A parity-check matrix $H$ allows a valid codeword $c$ to satisfy
+\[
+cH^T=0.
+\]
+For a received vector $y$, compute the syndrome
+\[
+s=yH^T.
+\]
+If $s=0$, no error is detected by the parity checks. If $s\ne0$, at least one parity-check equation has failed.
+
+\subsubsection{Simple Parity Example}
+For the $(5,4)$ parity code, this section uses
+\[
+H=\begin{pmatrix}1&1&1&1&1\end{pmatrix},
+\]
+so the check equation is
+\[
+y_1+y_2+y_3+y_4+y_5=0.
+\]
+
+\subsubsection{Systematic Form}
+For a systematic generator matrix
+\[
+G=[I_k\mid A],
+\]
+the example gives the corresponding parity-check structure
+\[
+H=[A^T\mid I_r].
+\]
+The relationship is binary and the valid codewords satisfy $cH^T=0$.
+
+\subsubsection{Generator Matrix of the $(5,2)$ Example}
+The example gives the generator rows
+\[
+G=\begin{pmatrix}
+1&0&1&0&1\\
+0&1&0&1&1
+\end{pmatrix}.
+\]
+The corresponding parity-check equations are those used in the syndrome example below.
+
+\subsubsection{Syndrome Example}
+For the given $(5,2)$ code, the example gives a parity-check matrix corresponding to the three equations
+\[
+y_1+y_3=0,
+\]
+\[
+y_2+y_4=0,
+\]
+\[
+y_1+y_2+y_5=0.
+\]
+For received
+\[
+y=(0,1,0,0,1),
+\]
+the given syndrome is
+\[
+s=(0,1,0),
+\]
+so only the second equation fails. Under the assumption of one bit error, this section identifies the error as the fourth bit.
+
+\subsection{More on Hamming Codes}
+\subsubsection{The $(7,4)$ Hamming Code}
+This section revisits the same encoding equations as Unit 1:
+\[
+\begin{aligned}
+ c_1&=u_1,&c_2&=u_2,&c_3&=u_3,&c_4&=u_4,\\
+ c_5&=u_1+u_2+u_4,\\
+ c_6&=u_1+u_3+u_4,\\
+ c_7&=u_2+u_3+u_4.
+\end{aligned}
+\]
+The generator matrix is
+\[
+G=
+\begin{pmatrix}
+1&0&0&0&1&1&0\\
+0&1&0&0&1&0&1\\
+0&0&1&0&0&1&1\\
+0&0&0&1&1&1&1
+\end{pmatrix}.
+\]
+
+\paragraph{All 16 codewords generated by the given equations}
+\begin{center}
+\scriptsize
+\begin{tabular}{cc}
+\toprule
+$u$ & $c$\\
+\midrule
+0000 & 0000000\\
+0001 & 0001111\\
+0010 & 0010011\\
+0011 & 0011100\\
+0100 & 0100101\\
+0101 & 0101010\\
+0110 & 0110110\\
+0111 & 0111001\\
+1000 & 1000110\\
+1001 & 1001001\\
+1010 & 1010101\\
+1011 & 1011010\\
+1100 & 1100011\\
+1101 & 1101100\\
+1110 & 1110000\\
+1111 & 1111111\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Hamming Code Capability}
+It follows that the $(7,4)$ Hamming code has $d_{\min}=3$. Therefore it can detect up to two-bit errors or correct all single-bit errors. This section emphasizes that these two guarantees cannot be used simultaneously at the same strength: the code can be used either for two-error detection or one-error correction.
+
+\subsubsection{Parity-Check Matrix}
+The given Hamming parity equations are
+\[
+y_1+y_2+y_4+y_5=0,
+\]
+\[
+y_1+y_3+y_4+y_6=0,
+\]
+\[
+y_2+y_3+y_4+y_7=0.
+\]
+Thus the example gives
+\[
+H=
+\begin{pmatrix}
+1&1&0&1&1&0&0\\
+1&0&1&1&0&1&0\\
+0&1&1&1&0&0&1
+\end{pmatrix}.
+\]
+
+\subsubsection{Single-Bit Syndrome Decoding}
+\Step
+\begin{enumerate}
+    \item Receive $y$.
+    \item Compute $s=yH^T$.
+    \item Identify which parity equations fail.
+    \item Under the one-error assumption, use the syndrome pattern to locate the erroneous bit.
+    \item Flip that bit to recover the codeword and then read off $u_1,u_2,u_3,u_4$ from the systematic positions.
+\end{enumerate}
+
+\subsubsection{Unit 1 / Test 1 Hamming Example Revisited}
+For
+\[
+y=(0,1,0,1,1,0,0),
+\]
+the worked example solution uses the three parity checks (shown as a Venn-diagram method in the paper), identifies the first bit as wrong, and gives the recovered message
+\[
+(1,1,0,1).
+\]
+
+\subsubsection{Error Detection versus Correction Trade-off}
+This section's central quantitative relationships are:
+\[
+\text{detect up to }d_{\min}-1\text{ errors},
+\]
+\[
+\text{correct up to }\left\lfloor\frac{d_{\min}-1}{2}\right\rfloor\text{ errors}.
+\]
+This should always be read together with the code rate
+\[
+R_c=\frac{k}{n}.
+\]
+More redundancy can increase error-handling capability but reduces the fraction of transmitted bits carrying raw information.
+
+\newpage
+% =========================================================
+\section{Cross-Unit Exam Workflow}
+% =========================================================
+
+\subsection{Proving a Function is Injective}
+\Step
+\begin{enumerate}
+    \item Start with arbitrary $x_1,x_2$ in the domain.
+    \item Assume $f(x_1)=f(x_2)$.
+    \item Simplify until the equation forces $x_1=x_2$.
+    \item Conclude injection.
+\end{enumerate}
+To disprove injection, give one counterexample $x_1\ne x_2$ with equal outputs.
+
+\subsection{Proving a Function is Surjective}
+\Step
+\begin{enumerate}
+    \item Choose an arbitrary codomain value $y$.
+    \item Solve $f(x)=y$ for a domain value $x$.
+    \item Check that the resulting $x$ is actually in the domain.
+    \item Conclude surjection.
+\end{enumerate}
+To disprove surjection, find one codomain element that is never attained.
+
+\subsection{Proving an Equivalence Relation}
+Check exactly three properties:
+\begin{enumerate}
+    \item Reflexive.
+    \item Symmetric.
+    \item Transitive.
+\end{enumerate}
+\Warning Antisymmetry is \textbf{not} one of the three requirements for an equivalence relation.
+
+\subsection{Finding an Equivalence Class}
+\Step
+\begin{enumerate}
+    \item Start from the definition $[a]=\{x:xRa\}$.
+    \item Substitute the specific relation.
+    \item Simplify to an equation or description of all related elements.
+    \item If the problem is geometric, express the class as a curve/line/circle as this section examples do.
+\end{enumerate}
+
+\subsection{Extended Euclidean Algorithm}
+\Step
+\begin{enumerate}
+    \item Perform Euclidean division until the remainder is zero.
+    \item Track coefficients of the original numbers.
+    \item The final non-zero remainder is the gcd.
+    \item Read off coefficients $x,y$ satisfying $ax+by=\gcd(a,b)$.
+\end{enumerate}
+
+\subsection{Finding a Modular Inverse}
+To find $a^{-1}\pmod n$:
+\begin{enumerate}
+    \item First check $\gcd(a,n)=1$.
+    \item Use extended Euclid to obtain $ax+ny=1$.
+    \item Reduce $x$ modulo $n$.
+    \item State $a^{-1}\equiv x\pmod n$.
+\end{enumerate}
+
+\subsection{Modular Exponentiation}
+\begin{enumerate}
+    \item Reduce the base modulo the modulus.
+    \item Square repeatedly and reduce after every operation.
+    \item Decompose the exponent into powers of 2.
+    \item Multiply only the required powers.
+\end{enumerate}
+
+\subsection{RSA}
+\begin{enumerate}
+    \item Identify $p,q$ and compute $N=pq$.
+    \item Compute $\varphi(N)=(p-1)(q-1)$.
+    \item Check $\gcd(e,\varphi(N))=1$.
+    \item Find $d=e^{-1}\pmod{\varphi(N)}$.
+    \item Encrypt with $m^e\pmod N$.
+    \item Decrypt with $c^d\pmod N$.
+    \item For hand calculations, use square-and-multiply.
+\end{enumerate}
+
+\subsection{Diffie-Hellman}
+\begin{enumerate}
+    \item Public: prime $p$ and primitive element $\alpha$.
+    \item Alice publishes $\alpha^a\pmod p$.
+    \item Bob publishes $\alpha^b\pmod p$.
+    \item Shared key is either $(\alpha^b)^a$ or $(\alpha^a)^b$ modulo $p$.
+    \item Use repeated squaring for numerical calculations.
+\end{enumerate}
+
+\subsection{CRT}
+\begin{enumerate}
+    \item Check the moduli are co-prime.
+    \item Use extended Euclid to obtain Bézout coefficients.
+    \item Substitute them into the CRT construction.
+    \item Reduce the result modulo the product of the moduli.
+\end{enumerate}
+
+\subsection{Error-Correcting Codes}
+\begin{enumerate}
+    \item Identify $(n,k)$ and compute $R_c=k/n$.
+    \item Determine or use $d_{\min}$.
+    \item Detection capability: $d_{\min}-1$.
+    \item Correction capability: $\lfloor(d_{\min}-1)/2\rfloor$.
+    \item For a generator matrix, encode using $c=uG$.
+    \item For a parity-check matrix, compute syndrome $s=yH^T$.
+\end{enumerate}
+
+\subsection{Exam-Style Coverage}
+The two given test solutions collectively demonstrate questions involving:
+\begin{itemize}
+    \item Vigen\`ere encryption and security comparison with Caesar.
+    \item Function composition, range, surjectivity and inverses.
+    \item Symmetry and antisymmetry proofs/counterexamples.
+    \item Injectivity and surjectivity of floor/modulo functions.
+    \item Equivalence relations and geometric equivalence classes.
+    \item Euler's totient function and prime-factor arguments.
+    \item Divisibility rules proved with modular arithmetic.
+    \item Extended Euclidean algorithm and Bézout coefficients.
+    \item Hamming-code decoding and code-rate comparison.
+    \item CIA triad definitions.
+    \item Relations induced by partitions.
+    \item Logarithmic/exponential function inverses.
+    \item CRT with three congruences.
+    \item Modular inverse via extended Euclid.
+    \item Modular exponentiation / square-and-multiply.
+    \item Order of an element modulo a prime.
+    \item Equivalence relations on $\mathbb R^2$.
+\end{itemize}
+
+\newpage
+% =========================================================
+\section{Quick Formula and Definition Reference}
+% =========================================================
+
+\subsection{Functions}
+\[
+(g\circ f)(x)=g(f(x))
+\]
+\[
+\text{injective: }f(x_1)=f(x_2)\Rightarrow x_1=x_2
+\]
+\[
+\text{surjective: range}(f)=\text{codomain}(f)
+\]
+
+\subsection{Relations}
+\[
+xRy\iff(x,y)\in R
+\]
+\[
+\text{equivalence} = \text{reflexive + symmetric + transitive}
+\]
+\[
+[a]=\{x:xRa\}
+\]
+
+\subsection{Divisibility and GCD}
+\[
+d\mid n\iff\exists k\in\mathbb Z,\ n=dk
+\]
+\[
+\gcd(a,b)=\gcd(b,a\bmod b)
+\]
+\[
+\gcd(a,b)=ax+by
+\]
+\[
+\varphi(p^k)=p^{k-1}(p-1)
+\]
+\[
+\varphi(mn)=\varphi(m)\varphi(n)\quad\text{when }\gcd(m,n)=1
+\]
+
+\subsection{Modular Arithmetic}
+\[
+a\equiv b\pmod n
+\]
+\[
+a^{-1}\text{ exists mod }n\iff\gcd(a,n)=1
+\]
+\[
+a^{p-1}\equiv1\pmod p\quad(p\text{ prime},\ p\nmid a)
+\]
+\[
+a^{\varphi(n)}\equiv1\pmod n\quad(\gcd(a,n)=1)
+\]
+
+\subsection{RSA}
+\[
+N=pq,
+\qquad
+\varphi(N)=(p-1)(q-1)
+\]
+\[
+ed\equiv1\pmod{\varphi(N)}
+\]
+\[
+c\equiv m^e\pmod N,
+\qquad
+m\equiv c^d\pmod N
+\]
+
+\subsection{Diffie-Hellman}
+\[
+y_A=\alpha^a\pmod p,
+\qquad y_B=\alpha^b\pmod p
+\]
+\[
+k=\alpha^{ab}\pmod p
+\]
+
+\subsection{El Gamal}
+\[
+e=\alpha^d\pmod p
+\]
+\[
+c_1=\alpha^k\pmod p,
+\qquad c_2=e^k m\pmod p
+\]
+\[
+m=c_2(c_1^d)^{-1}\pmod p
+\]
+
+\subsection{Linear Algebra}
+\[
+f(\alpha x+\beta y)=\alpha f(x)+\beta f(y)
+\]
+\[
+f(x)=Ax
+\]
+\[
+\det\begin{pmatrix}a&b\\c&d\end{pmatrix}=ad-bc
+\]
+\[
+A^{-1}=\frac{1}{\det A}\operatorname{adj}(A)
+\]
+
+\subsection{Error-Correcting Codes}
+\[
+R_c=\frac{k}{n}
+\]
+\[
+d(x,y)=\text{number of differing bits}
+\]
+\[
+d_{\min}=\text{smallest distance between distinct codewords}
+\]
+\[
+\text{detect up to }d_{\min}-1
+\]
+\[
+\text{correct up to }\left\lfloor\frac{d_{\min}-1}{2}\right\rfloor
+\]
+\[
+c=uG,
+\qquad
+s=yH^T
+\]
+
+\newpage
+% =========================================================
+\section{Source Coverage Map}
+% =========================================================
+The note is organized according to the given course materials. The following map records the given Unit structure used in this document:
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+Unit & Major topic & Main given subtopics represented in this note\\
+\midrule
+0 & Course Overview & CILO, topics, assessment, TBL, important dates\\
+1 & Introduction to Coding and Cryptography & communication systems, crypto goals, classical ciphers, modulo arithmetic, error detection/correction\\
+2 & Functions & sets, functions, composition, injections/surjections, inverse, countability, hash functions\\
+3 & Relations & relation definitions, properties, equivalence, equivalence classes, applications/examples\\
+4 & Divisibility and Euclidean Algorithm & divisibility, primes, co-primes, $\varphi$, Euclid, extended Euclid, fundamental theorem\\
+5 & Modular Arithmetic and CRT & congruence, fields, Diophantine equations, inverses, exponentiation, Fermat, Euler, CRT, SageMath\\
+6 & Public Key Cryptography & ethics, public-key ideas, signatures, RSA, Diffie-Hellman, El Gamal\\
+7 & Digital Certificate & identity problem, authority, certificates, X.509, self-signed certificates, OpenSSL, TBL\\
+8 & Linear Algebra for Cryptography & vectors, linearity, matrices, determinants, Hill cipher, secret sharing, Enigma supplement\\
+9 & Error-Correcting Codes & code parameters, distance, detection, correction, generator matrices, parity-check matrices, Hamming codes\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+\section*{End of Notes}
+\noindent The mathematical notation, worked examples, terminology, and procedures above are synthesized from the given course documents and the given test materials/solutions.\
+
+\end{document}
